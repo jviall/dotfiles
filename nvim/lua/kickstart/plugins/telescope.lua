@@ -25,10 +25,30 @@ return {
           return vim.fn.executable 'make' == 1
         end,
       },
+      -- File browser view
+      -- { 'nvim-telescope/telescope-file-browser.nvim' },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+    },
+    keys = {
+      {
+        ';e',
+        function()
+          local builtin = require 'telescope.builtin'
+          builtin.diagnostics()
+        end,
+        desc = 'Lists Diagnostics for all open buffers or a specific buffer',
+      },
+      {
+        ';s',
+        function()
+          local builtin = require 'telescope.builtin'
+          builtin.treesitter()
+        end,
+        desc = 'Lists Function names, variables, from Treesitter',
+      },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
