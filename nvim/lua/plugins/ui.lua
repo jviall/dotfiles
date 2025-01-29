@@ -1,11 +1,11 @@
+local actions = require("fzf-lua").actions
+
 return {
+
   -- noice
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       "MunifTanjim/nui.nvim",
@@ -17,6 +17,8 @@ return {
     config = function()
       require("noice").setup({
         lsp = {
+          hover = { silent = true }, -- disable notifications for hover actions
+          signature = { silent = true }, -- disable notifications for signature actions
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -39,7 +41,7 @@ return {
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 10000,
+      timeout = 20000,
     },
   },
   -- buffer line
@@ -56,6 +58,36 @@ return {
         separator_style = "slant",
         show_buffer_close_icons = false,
         show_close_icon = false,
+      },
+    },
+  },
+  -- fzf-lua
+  {
+    "ibhagwan/fzf-lua",
+    opts = {
+      actions = {
+        -- Below are the default actions, setting any value in these tables will override
+        -- the defaults, to inherit from the defaults change [1] from `false` to `true`
+        files = {
+          true, -- uncomment to inherit all the below in your custom config
+          -- Pickers inheriting these actions:
+          --   files, git_files, git_status, grep, lsp, oldfiles, quickfix, loclist,
+          --   tags, btags, args, buffers, tabs, lines, blines
+          -- `file_edit_or_qf` opens a single selection or sends multiple selection to quickfix
+          -- replace `enter` with `file_edit` to open all files/bufs whether single or multiple
+          -- replace `enter` with `file_switch_or_edit` to attempt a switch in current tab first
+          ["enter"] = actions.file_edit_or_qf,
+          ["ctrl-s"] = actions.file_split,
+          ["ctrl-v"] = actions.file_vsplit,
+          ["ctrl-t"] = actions.file_tabedit,
+          ["alt-q"] = actions.file_sel_to_qf,
+          ["alt-Q"] = actions.file_sel_to_ll,
+          ["ctrl-i"] = actions.toggle_ignore,
+          ["ctrl-h"] = actions.toggle_hidden,
+          ["ctrl-f"] = actions.toggle_follow,
+          ["alt-i"] = false,
+          ["alt-h"] = false,
+        },
       },
     },
   },
