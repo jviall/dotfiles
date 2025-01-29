@@ -12,6 +12,8 @@ brew "rg"
 brew "fzf"
 brew "fpp"
 brew "fnm"
+brew "ghq"
+brew "eza"
 
 # casks
 cask "ghostty"
