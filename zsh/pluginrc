@@ -1,4 +1,5 @@
 # PLUGINS
 
 znap prompt romkatv/powerlevel10k powerlevel10k
+znap source agkozak/zsh-z
 
