@@ -30,6 +30,9 @@ HISTFILE=${XDG_CACHE_HOME}/zsh/.zsh_history
 export VISUAL=/usr/local/bin/nvim
 export EDITOR=/usr/local/bin/nvim
 
+# FNM
+eval "$(fnm env --use-on-cd)"
+
 # To customize prompt, run `p10k configure` or edit ~/.config//zsh//.p10k.zsh.
 # Keep towards bottom
 [[ ! -f ~/.config//zsh//.p10k.zsh ]] || source ~/.config//zsh//.p10k.zsh

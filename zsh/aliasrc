@@ -17,6 +17,9 @@ alias gc="git commit -S -m"
 alias ga="git add"
 alias gaa="git add ."
 alias gca="git commit -S -am"
+alias gpull="git pull"
+alias gd="git diff"
+alias gl="git log"
 # default git to git status if there's no args
 function g() {
     if [[ -z "${*//[[:space:]]/}" ]]; then
@@ -25,9 +28,6 @@ function g() {
         git "$@"
     fi
 }
-# alias gadog='PAGER="less -F -X" git adog'
-# alias glog='PAGER="less -F -X" git log'
-# alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 # Tmux
 alias tkill="tmux kill-session -t"
