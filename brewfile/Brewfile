@@ -1,0 +1,23 @@
+tap "homebrew/cask"
+
+brew "htop"
+brew "sl"
+brew "tmux"
+brew "vim"
+brew "neovim"
+brew "tree"
+brew "grep"
+brew "zsh"
+brew "rg"
+brew "fzf"
+brew "fpp"
+brew "fnm"
+
+# casks
+cask "ghostty"
+cask "iterm2"
+cask "1password"
+cask "bitwarden"
+tap "nikitabobko/tap"
+cask "aerospace"
+
