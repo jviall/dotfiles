@@ -1,2 +1,4 @@
-iterm2/
+# plugins managed by znap
+zsh/plugins
+zsh/**/*.zwc
 
