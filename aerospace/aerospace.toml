@@ -175,7 +175,7 @@ alt-shift-v = 'move-node-to-workspace V'
 alt-shift-w = 'move-node-to-workspace W'
 alt-shift-x = 'move-node-to-workspace X'
 alt-shift-y = 'move-node-to-workspace Y'
-alt-shift-z = 'move-node-to-workspace Z'
+alt-shift-z = 'move-node-to-workspace Z' # [Z]oom and MS Teams
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -212,6 +212,9 @@ shift-down = ['volume set 0', 'mode main']
 [[on-window-detected]]
 if.app-id = 'com.googlecode.iterm2'
 run = 'move-node-to-workspace D'
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = 'move-node-to-workspace D'
 
 # Auto assign Workspace [B]rowser / [S]urf
 [[on-window-detected]]
@@ -226,8 +229,17 @@ run = 'move-node-to-workspace S'
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace E'
 
+# Auto assign Workspace [Z]oom
+[[on-window-detected]]
+if.app-id = 'com.zoom.xos'
+run = 'move-node-to-workspace Z'
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace Z'
+
 # Auto assign Monitors
 [workspace-to-monitor-force-assignment]
 D = ['dell', 2]     # Dev/Terminal on Dell monitor
 S = ['dell', 2]     # Surf/Browser on Dell monitor
+Z = ['dell', 2]     # Zoom/Teams on Dell monitor
 C = ['built-in', 1] # Chat on built-in screen
