@@ -20,6 +20,8 @@ alias gca="git commit -S -am"
 alias gpull="git pull"
 alias gd="git diff"
 alias gl="git log"
+alias greup="git fetch origin main:main && git rebase main"
+alias gst="git stash"
 # default git to git status if there's no args
 function g() {
     if [[ -z "${*//[[:space:]]/}" ]]; then
