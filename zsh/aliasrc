@@ -22,6 +22,7 @@ alias gd="git diff"
 alias gl="git log"
 alias greup="git fetch origin main:main && git rebase main"
 alias gst="git stash"
+alias gch="git checkout"
 # default git to git status if there's no args
 function g() {
     if [[ -z "${*//[[:space:]]/}" ]]; then
