@@ -5,4 +5,6 @@
 [gpg]
 	format = ssh
 [commit]
-	gpgsign = true
+  gpgsign = true
+[ghq]
+  root = ~/git
