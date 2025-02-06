@@ -1,7 +1,9 @@
 [user]
 	name = jviall
 	email = jamesviall@gmail.com
-	signingkey = ~/.ssh/github
+  signingkey = ~/.ssh/github
+[core]
+  editor = nvim
 [gpg]
 	format = ssh
 [commit]
