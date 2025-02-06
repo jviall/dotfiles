@@ -3,31 +3,38 @@
 -- Add any additional keymaps here
 --
 
-local keymap = vim.keymap
+local function map(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
+local unmap = vim.keymap.del
 local opts = { noremap = true, silent = true }
 
--- New tab
-keymap.set("n", "te", ":tabedit")
-keymap.set("n", "<tab>", ":tabnext<Return>", opts)
-keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+-- move buffers
+unmap("n", "<S-h>")
+unmap("n", "<S-l>")
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
+
 -- Split window
-keymap.set("n", "ss", ":split<Return>", opts)
-keymap.set("n", "sv", ":vsplit<Return>", opts)
+map("n", "ss", ":split<Return>", opts)
+map("n", "sv", ":vsplit<Return>", opts)
 -- Move window
-keymap.set("n", "sh", "<C-w>h")
-keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
-keymap.set("n", "sl", "<C-w>l")
+map("n", "sh", "<C-w>h")
+map("n", "sk", "<C-w>k")
+map("n", "sj", "<C-w>j")
+map("n", "sl", "<C-w>l")
 
 -- Refactoring
-keymap.set("x", "<leader>re", ":Refactor extract ")
-keymap.set("x", "<leader>rf", ":Refactor extract_to_file ")
+map("x", "<leader>re", ":Refactor extract ")
+map("x", "<leader>rf", ":Refactor extract_to_file ")
 
-keymap.set("x", "<leader>rv", ":Refactor extract_var ")
+map("x", "<leader>rv", ":Refactor extract_var ")
 
-keymap.set({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
+map({ "n", "x" }, "<leader>ri", ":Refactor inline_var")
 
-keymap.set("n", "<leader>rI", ":Refactor inline_func")
+map("n", "<leader>rI", ":Refactor inline_func")
 
-keymap.set("n", "<leader>rb", ":Refactor extract_block")
-keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
+map("n", "<leader>rb", ":Refactor extract_block")
+map("n", "<leader>rbf", ":Refactor extract_block_to_file")
