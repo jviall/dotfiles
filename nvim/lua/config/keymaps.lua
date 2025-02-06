@@ -25,3 +25,11 @@ map("n", "sh", "<C-w>h")
 map("n", "sk", "<C-w>k")
 map("n", "sj", "<C-w>j")
 map("n", "sl", "<C-w>l")
+
+-- Disable move-lines
+unmap("n", "<A-j>")
+unmap("n", "<A-k>")
+unmap("i", "<A-j>")
+unmap("i", "<A-k>")
+unmap("v", "<A-j>")
+unmap("v", "<A-k>")
