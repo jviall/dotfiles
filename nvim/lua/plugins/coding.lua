@@ -86,4 +86,25 @@ return {
       -- { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put Before Applying a Filter" },
     },
   },
+  {
+    "sindrets/diffview.nvim",
+    keys = {
+      { "<leader>gD", "<cmd>:DiffviewOpen<cr>", desc = "Git Diff View" },
+      { "<leader>gH", "<cmd>:DiffviewFileHistory<cr>", desc = "Git Diff View" },
+    },
+  },
+  {
+    "FabijanZulj/blame.nvim",
+    lazy = false,
+    config = function()
+      require("blame").setup({})
+    end,
+    opts = {
+      blame_opts = { "-w" },
+    },
+    keys = {
+      { "<leader>gb", "<cmd>:BlameToggle virtual<cr>", desc = "Git Blame (Virtual)" },
+      { "<leader>gB", "<cmd>:BlameToggle window<cr>", desc = "Git Blame (Window)" },
+    },
+  },
 }
