@@ -97,11 +97,11 @@ return {
     "FabijanZulj/blame.nvim",
     lazy = false,
     config = function()
-      require("blame").setup({})
+      require("blame").setup({
+        blame_opts = { "-w" },
+        date_format = "%m/%d/%y",
+      })
     end,
-    opts = {
-      blame_opts = { "-w" },
-    },
     keys = {
       { "<leader>gb", "<cmd>:BlameToggle virtual<cr>", desc = "Git Blame (Virtual)" },
       { "<leader>gB", "<cmd>:BlameToggle window<cr>", desc = "Git Blame (Window)" },
