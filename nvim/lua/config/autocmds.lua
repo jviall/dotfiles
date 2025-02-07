@@ -23,3 +23,16 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.lsp.buf.signature_help()
   end,
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  -- stylua: ignore
+  callback = function()
+    -- disable default go-to keymaps
+    local keys = require("lazyvim.plugins.lsp.keymaps").get()
+    keys[#keys + 1] = { "gd", false }
+    keys[#keys + 1] = { "gD", false }
+    keys[#keys + 1] = { "gr", false }
+    keys[#keys + 1] = { "gI", false }
+    keys[#keys + 1] = { "gy", false }
+  end,
+})

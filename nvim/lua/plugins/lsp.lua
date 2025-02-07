@@ -34,6 +34,10 @@ return {
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
           single_file_support = false,
+          keys = {
+            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+          },
           settings = {
             typescript = {
               inlayHints = {
