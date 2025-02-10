@@ -21,7 +21,7 @@ cask "iterm2"
 cask "1password"
 cask "karabiner-elements"
 cask "bitwarden"
-tap "nikitabobko/tap"
+tap "nikitabobko/tap" # aerospace tap
 cask "aerospace"
 cask "protonvpn"
 cask "arc"
@@ -36,8 +36,4 @@ cask "tidal"
 cask "spotify"
 cask "little-snitch"
 cask "caffeine"
-
-# work specific stuff
-cask "slack"
-cask "microsoft-teams"
 

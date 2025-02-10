@@ -127,4 +127,13 @@ else
   print_error "Brewfile not found"
 fi
 
+if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile.work" ]; then
+  if confirm "Install packages from Brewfile.work?"; then
+    brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile.work"
+    print_status "Homebrew packages installed successfully"
+  fi
+else
+  print_error "Brewfile.work not found"
+fi
+
 print_status "Setup completed successfully!"
