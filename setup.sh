@@ -74,6 +74,8 @@ fi
 
 # Update .zshenv
 ZSHENV_PATH="$HOME/.zshenv"
+XDG_CONFIG_HOME="$HOME/.config/"
+
 # make sure to escape quotes and $
 ZSHENV_CONTENTS="
 # Added by dotfiles setup
