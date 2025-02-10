@@ -1,5 +1,3 @@
-tap "homebrew/cask"
-
 brew "htop"
 brew "sl"
 brew "tmux"
