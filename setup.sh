@@ -122,7 +122,7 @@ fi
 print_status "Checking Homebrew packages..."
 if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile" ]; then
   if confirm "Install packages from Brewfile?"; then
-    brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile"
+    /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile"
     print_status "Homebrew packages installed successfully"
   fi
 else
@@ -131,7 +131,7 @@ fi
 
 if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile.work" ]; then
   if confirm "Install packages from Brewfile.work?"; then
-    brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile.work"
+    /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile.work"
     print_status "Homebrew packages installed successfully"
   fi
 else
