@@ -9,12 +9,24 @@ return {
         "luacheck",
         "shellcheck",
         "shfmt",
+        "jsonls",
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
+        "prettierd",
+        "prettier",
       })
     end,
   },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = { "json5", "jsonc" },
+    },
+  },
+  -- for yaml schema support?
+  { "b0o/SchemaStore.nvim" },
 
   -- lsp servers
   {
@@ -63,11 +75,31 @@ return {
             },
           },
         },
+        eslint = {
+          validate = "On",
+          format = false,
+        },
         html = {},
+        jsonls = {
+          -- lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+          end,
+          settings = {
+            json = {
+              format = {
+                enable = false,
+              },
+              validate = { enable = true },
+            },
+          },
+        },
         yamlls = {
           settings = {
             yaml = {
               keyOrdering = false,
+              format = false, -- let prettier handle yaml
             },
           },
         },
@@ -138,6 +170,22 @@ return {
         },
       },
       setup = {},
+    },
+  },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        javascript = { "prettierd", "prettier", stop_after_first = true },
+        json = { "prettierd", "prettier", stop_after_first = true },
+        yaml = { "prettierd", "prettier", stop_after_first = true },
+      },
+      format_on_save = {
+        timeout_ms = 300,
+        lsp_format = "fallback",
+      },
     },
   },
 }

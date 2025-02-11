@@ -14,13 +14,44 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     lazy = false,
-    config = function()
-      require("refactoring").setup({
-        show_success_message = true,
-      })
-    end,
+    opts = {
+      prompt_func_return_type = {
+        go = false,
+        java = false,
+        cpp = false,
+        c = false,
+        h = false,
+        hpp = false,
+        cxx = false,
+      },
+      prompt_func_param_type = {
+        go = false,
+        java = false,
+        cpp = false,
+        c = false,
+        h = false,
+        hpp = false,
+        cxx = false,
+      },
+      printf_statements = {},
+      print_var_statements = {},
+      show_success_message = true, -- shows a message with information about the refactor on success
+    },
   },
-  { "mini.surround", opts = {} },
+  {
+    "mini.surround",
+    opts = {
+      mappings = {
+        add = "gsa", -- Add surrounding in Normal and Visual modes
+        delete = "gsd", -- Delete surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        replace = "gsr", -- Replace surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
+    },
+  },
   {
     "okuuva/auto-save.nvim",
     lazy = false,
