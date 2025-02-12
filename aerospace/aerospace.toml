@@ -132,7 +132,7 @@ alt-e = 'workspace E'
 alt-f = 'workspace F' # [F]inder
 alt-g = 'workspace G'
 alt-i = 'workspace I'
-alt-m = 'workspace M'
+alt-m = 'workspace M' # [M]usic (Spotify/Tidal)
 alt-n = 'workspace N'
 alt-o = 'workspace O'
 alt-p = 'workspace P'
@@ -165,7 +165,7 @@ alt-shift-i = 'move-node-to-workspace I'
 alt-shift-m = 'move-node-to-workspace M'
 alt-shift-n = 'move-node-to-workspace N'
 alt-shift-o = 'move-node-to-workspace O'
-alt-shift-p = 'move-node-to-workspace P'
+alt-shift-p = 'move-node-to-workspace P' # [P]references / [P]asswords
 alt-shift-q = 'move-node-to-workspace Q'
 alt-shift-r = 'move-node-to-workspace R'
 alt-shift-s = 'move-node-to-workspace S' # [B]rowser / [S]urf
@@ -236,6 +236,30 @@ run = 'move-node-to-workspace Z'
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
 run = 'move-node-to-workspace Z'
+
+# Auto assign Workspace [C]hat
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace C'
+
+# Auto assign Workspace [M]usic
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = 'move-node-to-workspace M'
+[[on-window-detected]]
+if.app-id = 'com.tidal.desktop'
+run = 'move-node-to-workspace M'
+
+# Auto assign Workspace [P]references / [P]asswords
+[[on-window-detected]]
+if.app-id = 'com.apple.Passwords'
+run = 'move-node-to-workspace P'
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'move-node-to-workspace P'
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'move-node-to-workspace P'
 
 # Auto assign Monitors
 [workspace-to-monitor-force-assignment]
