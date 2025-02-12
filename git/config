@@ -4,9 +4,12 @@
   signingkey = ~/.ssh/github
 [core]
   editor = nvim
-[gpg]
-	format = ssh
+[push]
+  autoSetupRemote = true
 [commit]
   gpgsign = true
+[gpg]
+  format = ssh
+
 [ghq]
   root = ~/git
