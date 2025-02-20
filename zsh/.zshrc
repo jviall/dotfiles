@@ -13,14 +13,18 @@ zstyle ':znap:*' repos-dir ${XDG_CONFIG_HOME}/zsh/plugins
 # Start Znap
 source ${XDG_CONFIG_HOME}/zsh/plugins/znap.zsh
 
+# if exists source vicmd
+[ -f "${ZDOTDIR}/vimrc" ] && source "${ZDOTDIR}/vimrc"
+# if exists source plugins 
+[ -f "${ZDOTDIR}/pluginrc" ] && source "${ZDOTDIR}/pluginrc"
 # if exists source aliases
 [ -f "${ZDOTDIR}/aliasrc" ] && source "${ZDOTDIR}/aliasrc"
 # if exists source options
 [ -f "${ZDOTDIR}/optionrc" ] && source "${ZDOTDIR}/optionrc"
-# if exists source plugins 
-[ -f "${ZDOTDIR}/pluginrc" ] && source "${ZDOTDIR}/pluginrc"
 
 ## Do customizations below here ##
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 # history
 HISTSIZE=110000
@@ -32,6 +36,9 @@ export EDITOR=/usr/local/bin/nvim
 
 # FNM
 eval "$(fnm env --use-on-cd)"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.config//zsh//.p10k.zsh.
 # Keep towards bottom

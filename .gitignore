@@ -1,4 +1,5 @@
 # plugins managed by znap
 zsh/plugins
 zsh/**/*.zwc
+zsh/.zsh_history
 
