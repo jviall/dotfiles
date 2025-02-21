@@ -13,6 +13,8 @@ zstyle ':znap:*' repos-dir ${XDG_CONFIG_HOME}/zsh/plugins
 # Start Znap
 source ${XDG_CONFIG_HOME}/zsh/plugins/znap.zsh
 
+autoload -U compinit; compinit
+
 # if exists source vicmd
 [ -f "${ZDOTDIR}/vimrc" ] && source "${ZDOTDIR}/vimrc"
 # if exists source plugins 

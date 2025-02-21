@@ -1,7 +1,8 @@
 # PLUGINS
 
 znap prompt romkatv/powerlevel10k powerlevel10k
+znap source aloxaf/fzf-tab
 znap source zdharma-continuum/fast-syntax-highlighting
-znap source Aloxaf/fzf-tab
+znap source zsh-users/zsh-autosuggestions
 znap source kutsan/zsh-system-clipboard
 
