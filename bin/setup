@@ -132,8 +132,11 @@ while getopts "q" opt; do
   esac
 done
 
+# Make symlinks
+symlink
+
 # Check for Xcode Command Line Tools
-if [[ $IS_MACOS ]]; then
+if $IS_MACOS; then
   print_status "Checking for Xcode Command Line Tools..."
   if ! xcode-select -p &>/dev/null; then
     if confirm "Xcode Command Line Tools not found. Install?"; then
@@ -147,39 +150,42 @@ if [[ $IS_MACOS ]]; then
   fi
 fi
 
-# Make symlinks
-symlink
-
 # Check for Homebrew
-print_status "Checking for Homebrew..."
-if ! command -v brew &>/dev/null; then
-  if confirm "Homebrew not found. Install?"; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    print_success "Homebrew installed successfully"
-  else
-    print_error "Homebrew is required. Exiting."
-    exit 1
+if $IS_MACOS; then
+  print_status "Checking for Homebrew..."
+  if ! command -v brew &>/dev/null; then
+    if confirm "Homebrew not found. Install?"; then
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      print_success "Homebrew installed successfully"
+    else
+      print_error "Homebrew is required. Exiting."
+      exit 1
+    fi
   fi
 fi
 
 # Install Homebrew packages
-print_status "Checking Homebrew packages..."
-if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile" ]; then
-  if confirm "Install packages from Brewfile?"; then
-    /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile"
-    print_status "Homebrew packages installed successfully"
+if $IS_MACOS; then
+  print_status "Checking Homebrew packages..."
+  if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile" ]; then
+    if confirm "Install packages from Brewfile?"; then
+      /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile"
+      print_status "Homebrew packages installed successfully"
+    fi
+  else
+    print_error "Brewfile not found"
   fi
-else
-  print_error "Brewfile not found"
 fi
 
-if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile.work" ]; then
-  if confirm "Install packages from Brewfile.work?"; then
-    /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile.work"
-    print_status "Homebrew packages installed successfully"
+if $IS_MACOS; then
+  if [ -f "$XDG_CONFIG_HOME/homebrew/Brewfile.work" ]; then
+    if confirm "Install packages from Brewfile.work?"; then
+      /opt/homebrew/bin/brew bundle --file="$XDG_CONFIG_HOME/homebrew/Brewfile.work"
+      print_status "Homebrew packages installed successfully"
+    fi
+  else
+    print_error "Brewfile.work not found"
   fi
-else
-  print_error "Brewfile.work not found"
 fi
 
 print_status "Setup completed successfully!"
