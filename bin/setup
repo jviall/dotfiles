@@ -107,19 +107,6 @@ symlink() {
   done
 }
 
-# Check for Xcode Command Line Tools
-print_status "Checking for Xcode Command Line Tools..."
-if ! xcode-select -p &>/dev/null; then
-  if confirm "Xcode Command Line Tools not found. Install?"; then
-    xcode-select --install
-    print_status "Please wait for Xcode Command Line Tools to finish installing, then press any key to continue..."
-    read -n 1
-  else
-    print_error "Xcode Command Line Tools are required. Exiting."
-    exit 1
-  fi
-fi
-
 ## BEGIN SETUP ##
 if [[ "$(uname)" == "Darwin" ]]; then
   IS_MACOS=true
@@ -144,6 +131,21 @@ while getopts "q" opt; do
     ;;
   esac
 done
+
+# Check for Xcode Command Line Tools
+if [[ $IS_MACOS ]]; then
+  print_status "Checking for Xcode Command Line Tools..."
+  if ! xcode-select -p &>/dev/null; then
+    if confirm "Xcode Command Line Tools not found. Install?"; then
+      xcode-select --install
+      print_status "Please wait for Xcode Command Line Tools to finish installing, then press any key to continue..."
+      read -n 1
+    else
+      print_error "Xcode Command Line Tools are required. Exiting."
+      exit 1
+    fi
+  fi
+fi
 
 # Make symlinks
 symlink
