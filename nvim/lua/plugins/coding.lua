@@ -130,4 +130,10 @@ return {
       { "<leader>gB", "<cmd>:BlameToggle window<cr>", desc = "Git Blame (Window)" },
     },
   },
+  {
+    "saghen/blink.cmp",
+    opts = {
+      keymap = { preset = "super-tab" },
+    },
+  },
 }
