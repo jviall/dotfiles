@@ -13,3 +13,5 @@
 
 [ghq]
   root = ~/git
+[pull]
+	rebase = true
