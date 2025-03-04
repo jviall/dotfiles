@@ -17,6 +17,27 @@ SYM_FILES=(
   "$XDG_CONFIG_HOME/zsh/.zshenv" "$HOME/.zshenv"
 )
 
+APT_PKGS=(
+  "zsh"
+  "vim"
+  "neovim"
+  "zoxide"
+  "grep"
+  "ripgrep"
+  "gawk"
+  "htop"
+  "sl"
+  "tmux"
+  "tree"
+  "gnu-sed"
+  "rg"
+  "fzf"
+  "fpp"
+  "fnm"
+  "ghq"
+  "eza"
+)
+
 IS_MACOS=false
 IS_LINUX=false
 
@@ -188,4 +209,30 @@ if $IS_MACOS; then
   fi
 fi
 
-print_status "Setup completed successfully!"
+# Arrays to track successful and failed installations
+SUCCESSFUL=()
+FAILED=()
+
+# Install Linux packages
+if $IS_LINUX; then
+  if confirm "Install Linux Packages?"; then
+    for pkg in "${APT_PKGS[@]}"; do
+      if sudo apt install -y "$pkg"; then
+        SUCCESSFUL+=("$pkg")
+        echo "✓ Successfully installed $pkg"
+      else
+        FAILED+=("$pkg")
+        echo "✗ Failed to install $pkg"
+      fi
+    done
+    print_success "Successfully installed: ${#SUCCESSFUL[@]} packages"
+    if [ ${#FAILED[@]} -gt 0 ]; then
+      print_error "${#FAILED[@]} packages failed:"
+      for pkg in "${FAILED[@]}"; do
+        "$RED  ✗ $pkg$NC"
+      done
+    fi
+  fi
+fi
+
+print_success "Setup Complete"
