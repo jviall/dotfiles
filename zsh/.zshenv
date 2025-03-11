@@ -17,5 +17,8 @@ then
 fi
 
 # Hombrew path
-export PATH="/opt/homebrew/bin:$PATH"
+export PATH="$HOME/brew/bin:$PATH"
 export HOMEBREW_BREWFILE="$XDG_CONFIG_HOME/homebrew/Brewfile"
+
+# if exists source secrets
+[ -f "${XDG_CONFIG_HOME}/secrets/.env" ] && source "${XDG_CONFIG_HOME}/secrets/.env"
