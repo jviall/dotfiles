@@ -1,12 +1,13 @@
+#!/bin/zsh
 # General Aliases
 alias szsh="source ${XDG_CONFIG_HOME}/zsh/.zshrc"
-alias grep="grep --color=auto" 
-alias diff="diff --color=auto" 
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
 # alias rm="rm -ri"
 # alias mv="mv -i"
 alias nv="nvim"
-# alias	ls="ls -lah --color=auto --group-directories-first" 
-# alias df='df -h'  
+# alias	ls="ls -lah --color=auto --group-directories-first"
+# alias df='df -h'
 # alias free='free -m'
 # alias kchrome="ps -e | rg chrom | awk '{print $1}' | xargs kill -9"
 
@@ -31,11 +32,11 @@ alias gst="git stash"
 alias gch="git checkout"
 # default git to git status if there's no args
 function g() {
-    if [[ -z "${*//[[:space:]]/}" ]]; then
-        git status
-    else
-        git "$@"
-    fi
+  if [[ -z "${*//[[:space:]]/}" ]]; then
+    git status
+  else
+    git "$@"
+  fi
 }
 
 # Tmux
@@ -48,3 +49,17 @@ alias ta="tattach"
 alias ls="eza -ax  --icons"
 alias ll="eza -albh --icons --git"
 alias lr="eza -TL 3 --icons"
+
+# yazi
+function y() {
+  if command -v yazi &>/dev/null; then
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+  else
+    return 1
+  fi
+}
