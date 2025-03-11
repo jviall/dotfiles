@@ -185,6 +185,7 @@ return {
         astro = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
+        zsh = { "shfmt", stop_after_first = true },
       },
     },
   },
