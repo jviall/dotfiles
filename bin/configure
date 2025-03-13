@@ -15,7 +15,6 @@ QUIET=false
 
 SYM_FILES=(
   "$XDG_CONFIG_HOME/zsh/.zshenv" "$HOME/.zshenv"
-  "$XDG_CONFIG_HOME/zsh/.zprofile" "$HOME/.zprofile"
 )
 
 APT_PKGS=(
@@ -184,7 +183,7 @@ fi
 # Check for Homebrew
 if $IS_MACOS; then
   print_status "Checking for Homebrew..."
-  if ! command -v brew &>/dev/null && confirm "Homebrew not found. Install?"; then
+  if [[ ! -x "$BREW" ]] && confirm "Homebrew not found. Install?"; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     print_success "Homebrew installed successfully"
   elif [[ -x "$HOME/brew/bin/brew" ]] && confirm "Found a local installation of Hombrew at '~/brew/bin/brew'. Use it?"; then

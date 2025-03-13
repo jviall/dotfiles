@@ -13,7 +13,7 @@ zstyle ':znap:*' repos-dir ${XDG_CONFIG_HOME}/zsh/plugins
 # Start Znap
 source ${XDG_CONFIG_HOME}/zsh/plugins/znap.zsh
 
-autoload -U compinit; compinit
+autoload -U compinit -u; compinit -u
 
 # if exists source vicmd
 [ -f "${ZDOTDIR}/vimrc" ] && source "${ZDOTDIR}/vimrc"
@@ -44,5 +44,5 @@ eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.config//zsh//.p10k.zsh.
 # Keep towards bottom
-[[ ! -f ~/.config//zsh//.p10k.zsh ]] || source ~/.config//zsh//.p10k.zsh
+[[ ! -f ~/.config//zsh//.p10k.zsh ]] || source ~/.config//zsh//.p10k.esh
 
