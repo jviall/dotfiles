@@ -31,6 +31,7 @@ alias gl="git log --pretty=format:'%C(yellow)%h%Creset %ad %C(cyan)%an%Creset: %
 alias greup="git fetch origin main:main && git rebase main"
 alias gst="git stash"
 alias gch="git checkout"
+alias gnb="git checkout -b"
 # default git to git status if there's no args
 function g() {
   if [[ -z "${*//[[:space:]]/}" ]]; then
