@@ -33,3 +33,9 @@ unmap("i", "<A-j>")
 unmap("i", "<A-k>")
 unmap("v", "<A-j>")
 unmap("v", "<A-k>")
+
+-- Refactoring
+-- stylua: ignore 
+vim.keymap.set({ "n", "x" }, "<leader>rbb", function() return require('refactoring').refactor('Extract Block') end, { expr = true, desc = "Extract Block" })
+-- stylua: ignore 
+vim.keymap.set({ "n", "x" }, "<leader>rbf", function() return require('refactoring').refactor('Extract Block To File') end, { expr = true, desc = "Extract Block To File" })
