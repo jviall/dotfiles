@@ -20,11 +20,11 @@ map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
 -- Split window
 map("n", "ss", ":split<Return>", opts)
 map("n", "sv", ":vsplit<Return>", opts)
--- Move window
-map("n", "sh", "<C-w>h")
-map("n", "sk", "<C-w>k")
-map("n", "sj", "<C-w>j")
-map("n", "sl", "<C-w>l")
+-- Larger window resize increments
+map("n", "<leader>w+", ":resize +15<Return>", { desc = "Increase height +15" })
+map("n", "<leader>w-", ":resize -15<Return>", { desc = "Decrease height +15" })
+map("n", "<leader>w>", ":vertical resize +15<Return>", { desc = "Increase width +15" })
+map("n", "<leader>w<", ":vertical resize -15<Return>", { desc = "Decrease width +15" })
 
 -- Disable move-lines
 unmap("n", "<A-j>")
