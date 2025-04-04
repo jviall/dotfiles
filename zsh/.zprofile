@@ -18,3 +18,6 @@ fi
 
 export PATH="/opt/homebrew/bin/python3:$PATH"
 export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
+
+# Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
+eval "$(rbenv init - --no-rehash zsh)"
