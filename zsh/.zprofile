@@ -21,3 +21,6 @@ export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
 
 # Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
 eval "$(rbenv init - --no-rehash zsh)"
+
+# Created by `pipx` on 2025-04-20 02:16:04
+export PATH="$PATH:/Users/jamesviall/.local/bin"
