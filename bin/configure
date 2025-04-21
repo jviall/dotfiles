@@ -188,7 +188,9 @@ if $IS_MACOS; then
     print_success "Homebrew installed successfully"
   elif [[ -x "$HOME/brew/bin/brew" ]] && confirm "Found a local installation of Hombrew at '~/brew/bin/brew'. Use it?"; then
     BREW="$HOME/brew/bin/brew"
-    print_warning "You should update your zshenv if you want to use the local installation by default!"
+    print_warning "You should update your .zshenv if you want to use the local installation by default!"
+  elif [[ -x "$BREW" ]]; then
+    print_success "Using root homebrew"
   else
     print_error "Homebrew is required. Exiting."
     exit 1
