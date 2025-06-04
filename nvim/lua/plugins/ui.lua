@@ -30,7 +30,7 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      picker = { preset = "ivy" },
+      picker = { preset = "ivy", ui_select = true },
       explorer = {},
       win = {
         preview = {
