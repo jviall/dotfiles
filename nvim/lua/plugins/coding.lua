@@ -108,8 +108,79 @@ return {
   },
   {
     "saghen/blink.cmp",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
       keymap = { preset = "super-tab" },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+        per_filetype = {
+          codecompanion = { "codecompanion" },
+        },
+      },
+    },
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    ---@module 'codecompanion.nvim'
+    opts = {
+      extensions = {
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_vars = true,
+            make_slash_commands = true,
+            show_result_in_chat = true,
+          },
+        },
+      },
+      strategies = {
+        chat = {
+          adapter = {
+            name = "anthropic",
+            model = "claude-4-opus-20250514",
+          },
+        },
+        inline = {
+          adapter = {
+            name = "anthropic",
+            model = "claude-4-opus-20250514",
+          },
+        },
+        cmd = {
+          adapter = {
+            name = "anthropic",
+            model = "claude-4-opus-20250514",
+          },
+        },
+      },
+      adapters = {
+        anthropic = function()
+          return require("codecompanion.adapters").extend("anthropic", {
+            env = {
+              api_key = "cmd:op read op://Personal/anthropic-api-key/apiKey",
+            },
+          })
+        end,
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim",
+      "HakonHarnes/img-clip.nvim",
+    },
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
     },
   },
 }
