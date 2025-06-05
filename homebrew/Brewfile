@@ -24,6 +24,8 @@ brew "ghostscript"
 brew "imagemagick"
 brew "yazi"
 brew "python"
+tap "FelizKratz"formulae git@github.com:FelixKratz/homebrew-formulae.git
+brew sketchybar
 
 # casks
 cask "ghostty"
