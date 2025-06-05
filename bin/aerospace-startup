@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Define workspaces and their default apps
+for workspace in 'P' 'M' 'O'; do
+  window_count=$(aerospace list-windows --workspace "$workspace" --count)
+
+  echo "workspace ${workspace} has ${window_count} windows"
+
+  if [ "$window_count" -eq 0 ]; then
+    case "$workspace" in
+    "P") open -a 1Password ;;
+    "M") open -a Spotify ;;
+    "O") open -a ProtonVPN ;;
+    esac
+    sleep 1
+  fi
+
+  # Apply h_accordion layout to all windows in workspace
+  aerospace list-windows --workspace "$workspace" --format "%{window-id}" |
+    while read -r window_id; do
+      aerospace layout --window-id "$window_id" h_accordion
+    done
+done
