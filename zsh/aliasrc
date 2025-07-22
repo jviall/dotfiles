@@ -10,7 +10,31 @@ alias nv="nvim"
 # alias df='df -h'
 # alias free='free -m'
 # alias kchrome="ps -e | rg chrom | awk '{print $1}' | xargs kill -9"
-alias awsprof="aws sso login --profile"
+#
+# AWS profile management functions
+function awsp() {
+  if [ -z "$1" ]; then
+    echo "Usage: awsp <profile-name>"
+    echo "Available profiles:"
+    aws configure list-profiles
+    echo "Current profile:"
+    echo "'$AWS_PROFILE'"
+    return 1
+  fi
+  # Check if profile exists
+  if ! aws configure list-profiles | grep -q "^$1$"; then
+    echo "Error: Profile '$1' not found"
+    echo "Available profiles:"
+    aws configure list-profiles
+    return 1
+  fi
+  local profile_name="$1"
+  export AWS_PROFILE="$profile_name"
+  echo "Switched to profile: '$1'"
+}
+alias awswho='aws sts get-caller-identity'
+alias awslogin='aws sso login'
+
 alias aid="aider --model bedrock/us.anthropic.claude-3-7-sonnet-20250219-v1:0 --thinking-tokens 16k"
 
 # Git Aliases
@@ -48,6 +72,7 @@ alias tkill="tmux kill-session -t"
 alias tlist="tmux list-sessions"
 alias tattach="tmux attach"
 alias ta="tattach"
+alias tmz="tmux source-file ~/.config/zsh/.zshrc \; respawn-pane -k -t 0 \; respawn-pane -k -t 1" # source zshrc for all visible panes
 
 # eza/ls
 alias ls="eza -ax  --icons"
