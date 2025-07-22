@@ -10,6 +10,8 @@ alias nv="nvim"
 # alias df='df -h'
 # alias free='free -m'
 # alias kchrome="ps -e | rg chrom | awk '{print $1}' | xargs kill -9"
+alias awsprof="aws sso login --profile"
+alias aid="aider --model bedrock/us.anthropic.claude-3-7-sonnet-20250219-v1:0 --thinking-tokens 16k"
 
 # Git Aliases
 alias gs="git status"

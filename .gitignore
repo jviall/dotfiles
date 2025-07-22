@@ -8,3 +8,4 @@ htop
 
 configstore/
 secrets/
+.aider*

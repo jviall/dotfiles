@@ -24,3 +24,6 @@ eval "$(rbenv init - --no-rehash zsh)"
 
 # Created by `pipx` on 2025-04-20 02:16:04
 export PATH="$PATH:/Users/jamesviall/.local/bin"
+
+# Created by `pipx` on 2025-07-21 23:06:01
+export PATH="$PATH:/Users/njooi/.local/bin"
