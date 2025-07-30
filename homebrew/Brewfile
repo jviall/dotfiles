@@ -24,28 +24,5 @@ brew "ghostscript"
 brew "imagemagick"
 brew "yazi"
 brew "python"
-tap "FelizKratz"formulae git@github.com:FelixKratz/homebrew-formulae.git
-brew sketchybar
-
-# casks
-cask "ghostty"
-cask "iterm2"
-cask "1password"
-cask "karabiner-elements"
-cask "bitwarden"
-tap "nikitabobko/tap" # aerospace tap
-cask "aerospace"
-cask "protonvpn"
-cask "arc"
-cask "google-chrome"
-cask "firefox"
-cask "vscodium"
-cask "xld"
-cask "vlc"
-cask "audacity"
-cask "gimp"
-cask "tidal"
-cask "spotify"
-cask "little-snitch"
-cask "caffeine"
+brew awscli
 
