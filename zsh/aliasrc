@@ -35,7 +35,7 @@ function awsp() {
 alias awswho='aws sts get-caller-identity'
 alias awslogin='aws sso login'
 
-alias aid="aider --model bedrock/us.anthropic.claude-3-7-sonnet-20250219-v1:0 --thinking-tokens 16k"
+alias aider="aider --config ~/.config/.aider.conf.yml"
 
 # Git Aliases
 alias gs="git status"

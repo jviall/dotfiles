@@ -4,6 +4,7 @@
   signingkey = ~/.ssh/github
 [core]
   editor = nvim
+	excludesfile = /Users/njooi/.config/git/ignore
 [push]
   autoSetupRemote = true
 [commit]
