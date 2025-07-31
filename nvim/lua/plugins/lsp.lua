@@ -15,6 +15,11 @@ return {
         "astro-language-server",
         "prettierd",
         "prettier",
+        "pyright",
+        "black",
+        "isort",
+        "flake8",
+        "ruff",
       })
     end,
   },
@@ -102,6 +107,46 @@ return {
               format = false, -- let prettier handle yaml
             },
           },
+        },
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+                typeCheckingMode = "basic",
+              },
+              pythonPath = vim.fn.exepath("python3") or vim.fn.exepath("python"),
+              venvPath = vim.fn.getcwd(),
+            },
+          },
+          on_new_config = function(new_config, new_root_dir)
+            -- Try to find virtual environment
+            local venv_path = nil
+            local possible_venv_paths = {
+              new_root_dir .. "/venv",
+              new_root_dir .. "/.venv",
+              new_root_dir .. "/env",
+              new_root_dir .. "/.env",
+            }
+
+            for _, path in ipairs(possible_venv_paths) do
+              if vim.fn.isdirectory(path) == 1 then
+                venv_path = path
+                break
+              end
+            end
+
+            if venv_path then
+              local python_path = venv_path .. "/bin/python"
+              if vim.fn.executable(python_path) == 1 then
+                new_config.settings.python.pythonPath = python_path
+                new_config.settings.python.venvPath = new_root_dir
+                new_config.settings.python.venv = vim.fn.fnamemodify(venv_path, ":t")
+              end
+            end
+          end,
         },
         lua_ls = {
           -- enabled = false,
