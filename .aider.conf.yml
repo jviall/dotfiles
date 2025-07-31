@@ -18,7 +18,7 @@
 # Main model:
 
 ## Specify the model to use for the main chat
-model: sonnet4
+model: work-sonnet4
 
 ########################
 # API Keys and settings:
@@ -28,9 +28,9 @@ model: sonnet4
 
 ## Add a model alias (can be used multiple times)
 alias:
-  - sonnet4:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-sonnet-4-20250514-v1:0
-  - sonnet3.7:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0
-  - opus4:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-opus-4-20250514-v1:0
+  - work-sonnet4:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-sonnet-4-20250514-v1:0
+  - work-sonnet3.7:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0
+  - work-opus4:bedrock/arn:aws:bedrock:us-east-1:274460373520:inference-profile/us.anthropic.claude-opus-4-20250514-v1:0
 
 ## Set the reasoning_effort API parameter (default: not set)
 #reasoning-effort: xxx

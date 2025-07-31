@@ -35,7 +35,7 @@ function awsp() {
 alias awswho='aws sts get-caller-identity'
 alias awslogin='aws sso login'
 
-alias aider="aider --config ~/.config/.aider.conf.yml"
+alias aider="aider --config ~/.config/.aider.conf.yml --env-file ~/.config/.env-aider"
 
 # Git Aliases
 alias gs="git status"
