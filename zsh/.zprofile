@@ -27,3 +27,8 @@ export PATH="$PATH:/Users/jamesviall/.local/bin"
 
 # Created by `pipx` on 2025-07-21 23:06:01
 export PATH="$PATH:/Users/njooi/.local/bin"
+
+eval $(ssh-agent)
+if [ -f "$HOME/.ssh/github" ]; then
+  ssh-add --apple-use-keychain ~/.ssh/github
+fi
