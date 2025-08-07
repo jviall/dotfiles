@@ -24,5 +24,6 @@ brew "ghostscript"
 brew "imagemagick"
 brew "yazi"
 brew "python"
-brew awscli
+brew "awscli"
+brew "zoxide"
 
