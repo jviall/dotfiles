@@ -26,4 +26,4 @@ brew "yazi"
 brew "python"
 brew "awscli"
 brew "zoxide"
-
+brew "pipx"

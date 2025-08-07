@@ -19,4 +19,5 @@ cask "tidal"
 cask "spotify"
 cask "little-snitch"
 cask "caffeine"
+cask "hammerspoon"
 
