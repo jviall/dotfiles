@@ -1,8 +1,8 @@
 # plugins managed by znap
-zsh/plugins
-zsh/**/*.zwc
-zsh/.zsh_history
-zsh/.zsh_sessions
+dot_config/zsh/plugins
+**/*.zwc
+dot_config/zsh/.zsh_history
+dot_config/zsh/.zsh_sessions
 
 htop
 
