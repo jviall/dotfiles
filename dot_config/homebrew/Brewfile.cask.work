@@ -1,6 +1,0 @@
-# Casks
-cask "slack"
-cask "microsoft-teams"
-cask "microsoft-outlook"
-cask "zoom"
-
