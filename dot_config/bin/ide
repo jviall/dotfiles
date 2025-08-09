@@ -1,15 +1,13 @@
 #!/bin/bash
 
-WIN_1="$HOME/.config"
+WIN_1="$HOME/.local/shared/chezmoi"
 WIN_2="$HOME/git/github.com/newjersey/dol-ui-ivr-wrapper"
 WIN_3="$HOME/git/github.com/newjersey/innovation.nj.gov"
 
 # Create a new tmux session named 'ide' if it doesn't exist
 tmux new-session -d -s ide -c "$WIN_1"
 
-# Configure Window 1 (.config)
-tmux rename-window -t ide:0 'config'
-tmux send-keys -t ide:0 'nvim' C-m
+# Configure Window 1 (chezmoi source)
 tmux split-window -h -t ide:0 -c "$WIN_1"
 tmux split-window -v -t ide:0.1 -c "$WIN_1"
 
