@@ -99,6 +99,7 @@ return {
               validate = { enable = true },
             },
           },
+          filetypes = { "json", "jsonc", "tmpl" },
         },
         yamlls = {
           settings = {
