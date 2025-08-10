@@ -20,6 +20,7 @@ return {
         "isort",
         "flake8",
         "ruff",
+        "ruff-lsp",
       })
     end,
   },
@@ -117,19 +118,20 @@ return {
                 useLibraryCodeForTypes = true,
                 diagnosticMode = "workspace",
                 typeCheckingMode = "basic",
+                disableOrganizeImports = true, -- ruff handles import sorting
               },
               pythonPath = vim.fn.exepath("python3") or vim.fn.exepath("python"),
               venvPath = vim.fn.getcwd(),
             },
           },
-          on_new_config = function(new_config, new_root_dir)
+          on_new_config = function(config, root_dir)
             -- Try to find virtual environment
             local venv_path = nil
             local possible_venv_paths = {
-              new_root_dir .. "/venv",
-              new_root_dir .. "/.venv",
-              new_root_dir .. "/env",
-              new_root_dir .. "/.env",
+              root_dir .. "/venv",
+              root_dir .. "/.venv",
+              root_dir .. "/env",
+              root_dir .. "/.env",
             }
 
             for _, path in ipairs(possible_venv_paths) do
@@ -142,12 +144,20 @@ return {
             if venv_path then
               local python_path = venv_path .. "/bin/python"
               if vim.fn.executable(python_path) == 1 then
-                new_config.settings.python.pythonPath = python_path
-                new_config.settings.python.venvPath = new_root_dir
-                new_config.settings.python.venv = vim.fn.fnamemodify(venv_path, ":t")
+                config.settings.python.pythonPath = python_path
+                config.settings.python.venvPath = root_dir
+                config.settings.python.venv = vim.fn.fnamemodify(venv_path, ":t")
               end
             end
           end,
+        },
+        ruff_lsp = {
+          init_options = {
+            settings = {
+              -- Any extra CLI arguments for `ruff` go here.
+              args = {},
+            },
+          },
         },
         lua_ls = {
           -- enabled = false,
@@ -223,7 +233,7 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "black" },
+        python = { "ruff_format", "ruff_organize_imports" },
         typescriptreact = { "prettierd", "prettier", stop_after_first = true },
         javascriptreact = { "prettierd", "prettier", stop_after_first = true },
         typescript = { "prettierd", "prettier", stop_after_first = true },

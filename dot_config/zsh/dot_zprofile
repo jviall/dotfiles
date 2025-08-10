@@ -26,5 +26,7 @@ if [ -f "$HOME/.ssh/github" ]; then
   ssh-add --apple-use-keychain ~/.ssh/github
 fi
 
+export POETRY_CONFIG_DIR="${XDG_CONFIG_HOME}/pypoetry"
+
 # Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
 eval "$(rbenv init - --no-rehash zsh)"
