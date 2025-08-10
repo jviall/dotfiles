@@ -92,3 +92,7 @@ function y() {
     return 1
   fi
 }
+
+# chezmoi
+alias cheza="chezmoi apply"
+alias chezd="chezmoi diff"

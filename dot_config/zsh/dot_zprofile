@@ -19,16 +19,12 @@ fi
 export PATH="/opt/homebrew/bin/python3:$PATH"
 export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
 
-# Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
-eval "$(rbenv init - --no-rehash zsh)"
-
-# Created by `pipx` on 2025-04-20 02:16:04
-export PATH="$PATH:/Users/jamesviall/.local/bin"
-
-# Created by `pipx` on 2025-07-21 23:06:01
-export PATH="$PATH:/Users/njooi/.local/bin"
+export PATH="$PATH:~/.local/bin"
 
 eval $(ssh-agent)
 if [ -f "$HOME/.ssh/github" ]; then
   ssh-add --apple-use-keychain ~/.ssh/github
 fi
+
+# Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
+eval "$(rbenv init - --no-rehash zsh)"
