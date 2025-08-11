@@ -1,8 +1,13 @@
 #!/bin/bash
 
-WIN_1="$HOME/.local/shared/chezmoi"
+WIN_1="$HOME/.local/share/chezmoi"
+{{ if eq .chezmoi.username "jamesviall" }}
+WIN_2="$HOME/git/github.com/jviall/bigpeach.club"
+WIN_3="$HOME/git/github.com/jviall/rekordbox-bulk-edit/"
+{{ else if eq .chezmoi.username "njooi" }}
 WIN_2="$HOME/git/github.com/newjersey/dol-ui-ivr-wrapper"
 WIN_3="$HOME/git/github.com/newjersey/innovation.nj.gov"
+{{ end }}
 
 # Create a new tmux session named 'ide' if it doesn't exist
 tmux new-session -d -s ide -c "$WIN_1"
@@ -11,16 +16,13 @@ tmux new-session -d -s ide -c "$WIN_1"
 tmux split-window -h -t ide:0 -c "$WIN_1"
 tmux split-window -v -t ide:0.1 -c "$WIN_1"
 
-# Create Window 2 (ivr)
+# Create Window 2
 tmux new-window -t ide:1 -c "$WIN_2"
-tmux rename-window -t ide:1 'ivr-wrapper'
 tmux send-keys -t ide:1 'nvim' C-m
 tmux split-window -h -t ide:1 -c "$WIN_2"
 tmux split-window -v -t ide:1.1 -c "$WIN_2"
 
-# Create Window 3 (innovation.nj.gov)
 tmux new-window -t ide:2 -c "$WIN_3"
-tmux rename-window -t ide:2 'innovation.nj.gov'
 tmux send-keys -t ide:2 'nvim' C-m
 tmux split-window -h -t ide:2 -c "$WIN_3"
 tmux split-window -v -t ide:2.1 -c "$WIN_3"

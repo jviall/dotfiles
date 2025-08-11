@@ -19,7 +19,7 @@ fi
 export PATH="/opt/homebrew/bin/python3:$PATH"
 export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
 
-export PATH="$PATH:~/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
 
 eval $(ssh-agent)
 if [ -f "$HOME/.ssh/github" ]; then
