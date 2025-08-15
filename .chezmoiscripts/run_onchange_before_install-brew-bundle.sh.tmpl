@@ -7,8 +7,6 @@
 
 brew bundle --upgrade --file=/dev/stdin <<EOF
 
-{{ if eq .chezmoi.username "jamesviall" }}
-
 brew "htop"
 brew "sl"
 brew "tmux"
@@ -56,7 +54,7 @@ cask "aerospace"
 cask "protonvpn"
 cask "arc"
 cask "google-chrome"
-cask "firefox"
+cask "firefox@nightly"
 cask "vscodium"
 cask "xld"
 cask "vlc"
@@ -69,7 +67,7 @@ cask "caffeine"
 cask "hammerspoon"
 cask "transmission"
 
-{{ else if eq .chezmoi.username "njooi" }}
+{{ if eq .chezmoi.username "njooi" }}
 # Additional work-related packages 
 
 # Casks
@@ -77,7 +75,7 @@ cask "slack"
 cask "microsoft-teams"
 cask "microsoft-outlook" 
 cask "zoom"
-{{- end -}}
+{{- end }}
 
 EOF
 {{ end -}}
