@@ -10,3 +10,4 @@ configstore/
 secrets/
 .env
 .aider*
+bin/chezmoi
