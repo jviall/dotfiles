@@ -11,8 +11,7 @@
   gpgsign = true
 [gpg]
   format = ssh
-
-[ghq]
-  root = ~/git
 [pull]
 	rebase = true
+[ghq]
+  root = ~/git

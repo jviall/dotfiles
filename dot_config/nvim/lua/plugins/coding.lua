@@ -87,7 +87,9 @@ return {
   },
   {
     "sindrets/diffview.nvim",
+    lazy = false,
     keys = {
+      { "<leader>gd", "<cmd>:DiffviewOpen<cr>", desc = "Git Diff View" },
       { "<leader>gD", "<cmd>:DiffviewOpen<cr>", desc = "Git Diff View" },
       { "<leader>gH", "<cmd>:DiffviewFileHistory<cr>", desc = "Git Diff View" },
     },

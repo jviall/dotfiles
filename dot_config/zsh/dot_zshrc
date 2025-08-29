@@ -38,7 +38,7 @@ export VISUAL=/usr/local/bin/nvim
 export EDITOR=/usr/local/bin/nvim
 
 # FNM
-eval "$(fnm env --use-on-cd)"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # zoxide
 eval "$(zoxide init zsh)"
