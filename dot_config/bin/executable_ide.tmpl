@@ -1,5 +1,6 @@
 #!/bin/bash
 
+WIN_0="$HOME"
 WIN_1="$HOME/.local/share/chezmoi"
 {{ if eq .chezmoi.username "jamesviall" }}
 WIN_2="$HOME/git/github.com/jviall/bigpeach.club"
@@ -10,23 +11,31 @@ WIN_3="$HOME/git/github.com/newjersey/innovation.nj.gov"
 {{ end }}
 
 # Create a new tmux session named 'ide' if it doesn't exist
-tmux new-session -d -s ide -c "$WIN_1"
+tmux new-session -d -s ide -c "$WIN_0"
+
+# Create Window 0 (home)
+tmux split-window -h -t ide:0 -c "$WIN_0"
+tmux split-window -v -t ide:0.1 -c "$WIN_0"
 
 # Configure Window 1 (chezmoi source)
-tmux split-window -h -t ide:0 -c "$WIN_1"
-tmux split-window -v -t ide:0.1 -c "$WIN_1"
+tmux new-window -t ide:1 -c "$WIN_1"
+tmux send-keys -t ide:1 'nvim' C-m
+tmux split-window -h -t ide:1 -c "$WIN_1"
+tmux split-window -v -t ide:1.1 -c "$WIN_1"
 
 # Create Window 2
-tmux new-window -t ide:1 -c "$WIN_2"
-tmux send-keys -t ide:1 'nvim' C-m
-tmux split-window -h -t ide:1 -c "$WIN_2"
-tmux split-window -v -t ide:1.1 -c "$WIN_2"
-
-tmux new-window -t ide:2 -c "$WIN_3"
+tmux new-window -t ide:2 -c "$WIN_2"
 tmux send-keys -t ide:2 'nvim' C-m
-tmux split-window -h -t ide:2 -c "$WIN_3"
-tmux split-window -v -t ide:2.1 -c "$WIN_3"
+tmux split-window -h -t ide:2 -c "$WIN_2"
+tmux split-window -v -t ide:2.1 -c "$WIN_2"
+
+# Create Window 3
+tmux new-window -t ide:3 -c "$WIN_3"
+tmux send-keys -t ide:3 'nvim' C-m
+tmux split-window -h -t ide:3 -c "$WIN_3"
+tmux split-window -v -t ide:3.1 -c "$WIN_3"
+
 
 # Select Window 1 and attach to the session
-tmux select-window -t ide:0
+tmux select-window -t ide:1
 tmux attach-session -t ide
