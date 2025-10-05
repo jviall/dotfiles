@@ -1,0 +1,9 @@
+[No Soap]
+source            = imaps://{{ (onepasswordDetailsFields "gbr74qbypbbwxad5s7ims2jsje").username.value }}@mail.cock.li
+source-cred-cmd   = op item get gbr74qbypbbwxad5s7ims2jsje --fields password --reveal
+outgoing          = smtps://{{ (onepasswordDetailsFields "gbr74qbypbbwxad5s7ims2jsje").username.value }}@mail.cock.li
+outgoing-cred-cmd = op item get gbr74qbypbbwxad5s7ims2jsje --fields password --reveal
+default           = INBOX
+from              = No Soap <{{ (onepasswordDetailsFields "gbr74qbypbbwxad5s7ims2jsje").username.value }}>
+copy-to           = Sent
+cache-headers     = true
