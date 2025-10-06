@@ -1,0 +1,5 @@
+Host truenas
+    HostName {{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").hostname.value }}
+    User {{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").username.value }}
+    IdentityFile ~/.ssh/{{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").username.value }}
+
