@@ -1,0 +1,6 @@
+[mgr]
+show_hidden = true
+linemode = "size_and_mtime"
+[tasks]
+image_alloc      = 536870912  # 512MB
+image_bound      = [ 20000, 20000 ]
