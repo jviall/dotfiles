@@ -5,6 +5,11 @@
     -}}
 #!/bin/bash
 
+if ! command -v brew >/dev/null 2>&1; then
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+fi
+
+
 brew bundle --upgrade --file=/dev/stdin <<EOF
 
 brew "git"
@@ -78,7 +83,7 @@ cask "hammerspoon"
 cask "transmission"
 cask "obsidian"
 
-{{ if eq .chezmoi.username "njooi" }}
+{{ if contains .chezmoi.username "ooi" }}
 # Additional work-related packages 
 
 # Casks
