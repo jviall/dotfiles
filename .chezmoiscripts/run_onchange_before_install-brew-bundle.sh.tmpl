@@ -6,18 +6,24 @@
 #!/bin/bash
 
 if ! command -v brew >/dev/null 2>&1; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  
-  # Add Homebrew to PATH for this session
-  echo "Installing homebrew"
-  if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  elif [[ -f "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-  fi
+  echo "Installing Homebrew..."
+  curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 fi
 
+# Ensure Homebrew is in PATH for this session
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
 
+# Verify brew is now available
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Error: brew command not found after installation attempt"
+  exit 1
+fi
+
+echo "Running brew bundle..."
 brew bundle --upgrade --file=/dev/stdin <<EOF
 
 brew "git"
