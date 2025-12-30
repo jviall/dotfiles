@@ -97,7 +97,7 @@ cask "hammerspoon"
 cask "transmission"
 cask "obsidian"
 
-{{ if contains .chezmoi.username "ooi" }}
+{{ if or (contains .chezmoi.username "gov") (contains .chezmoi.username "nj") }}
 # Additional work-related packages 
 
 # Casks
