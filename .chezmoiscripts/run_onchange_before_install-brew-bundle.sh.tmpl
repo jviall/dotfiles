@@ -97,14 +97,10 @@ cask "hammerspoon"
 cask "transmission"
 cask "obsidian"
 
-{{ if or (contains .chezmoi.username "gov") (contains .chezmoi.username "nj") }}
+{{ if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
 # Additional work-related packages 
 
 # Casks
-cask "slack"
-cask "microsoft-teams"
-cask "microsoft-outlook" 
-cask "zoom"
 cask "amazon-workspaces"
 {{- end }}
 

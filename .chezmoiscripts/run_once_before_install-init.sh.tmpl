@@ -23,7 +23,7 @@ dockutil --remove all
 dockutil --add /Applications/1Password.app --no-restart
 dockutil --add /Applications/Arc.app --no-restart
 dockutil --add /Applications/Ghostty.app --no-restart
-{{ if or (contains .chezmoi.username "gov") (contains .chezmoi.username "nj") -}}
+{{ if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
 dockutil --add /Applications/Bitwarden.app --no-restart
 dockutil --add /Applications/Google\ Chrome.app --no-restart
 dockutil --add /Applications/Firefox\ Nightly.app --no-restart
