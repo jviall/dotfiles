@@ -258,6 +258,9 @@ run = 'move-node-to-workspace M'
 [[on-window-detected]]
 if.app-id = 'com.tidal.desktop'
 run = 'move-node-to-workspace M'
+[[on-window-detected]]
+if.app-id = 'com.qobuz.desktop'
+run = 'move-node-to-workspace M'
 
 # Auto assign Workspace [P]references / Passwords
 [[on-window-detected]]

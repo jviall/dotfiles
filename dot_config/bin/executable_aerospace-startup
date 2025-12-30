@@ -9,7 +9,10 @@ for workspace in 'P' 'M' 'O'; do
   if [ "$window_count" -eq 0 ]; then
     case "$workspace" in
     "P") open -a 1Password ;;
-    "M") open -a Spotify ;;
+    "M")
+      open -a Spotify
+      open -a Qobuz
+      ;;
     "O") open -a ProtonVPN ;;
     esac
     sleep 1
