@@ -23,6 +23,7 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
+brew tap "nikitabobko/tap" # aerospace
 echo "Running brew bundle..."
 brew bundle --upgrade --file=/dev/stdin <<EOF
 
@@ -70,7 +71,6 @@ brew "rage"
 brew "asdf"
 
 # casks 
-tap "nikitabobko/tap" # aerospace tap
 cask "ghostty"
 cask "iterm2"
 cask "1password"
