@@ -1,6 +1,6 @@
 [user]
 	name = jviall
-	email = jamesviall@gmail.com
+	email = jviall@pm.me
   signingkey = ~/.ssh/github
 [core]
   editor = nvim
