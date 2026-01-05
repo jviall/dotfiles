@@ -1,7 +1,7 @@
 return {
   -- tools
   {
-    "mason-org/mason.nvim",
+    "williamboman/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "stylua",
@@ -225,18 +225,7 @@ return {
           },
         },
       },
-      setup = {
-        ["*"] = function(_server, opts)
-          opts.keys = opts.keys or {}
-          vim.list_extend(opts.keys, {
-            { "gd", false },
-            { "gD", false },
-            { "gr", false },
-            { "gI", false },
-            { "gy", false },
-          })
-        end,
-      },
+      setup = {},
     },
   },
   {
