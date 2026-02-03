@@ -34,9 +34,6 @@ HISTSIZE=110000
 SAVEHIST=100000
 HISTFILE=${XDG_CACHE_HOME}/zsh/.zsh_history
 
-export VISUAL=/usr/local/bin/nvim
-export EDITOR=/usr/local/bin/nvim
-
 # FNM
 eval "$(fnm env --use-on-cd --shell zsh)"
 

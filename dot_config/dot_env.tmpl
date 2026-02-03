@@ -1,0 +1,15 @@
+#!/bin/zsh
+
+export VISUAL=/usr/local/bin/nvim
+export EDITOR=/usr/local/bin/nvim
+
+export POETRY_CONFIG_DIR="${XDG_CONFIG_HOME}/pypoetry"
+
+{{ if or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) -}}
+
+export CLAUDE_CODE_USE_BEDROCK=1
+
+export AWS_REGION=us-east-1
+export AWS_PROFILE=default
+
+{{ end -}}

@@ -3,8 +3,11 @@
 export PATH="/opt/homebrew/bin:$PATH"
 export HOMEBREW_BREWFILE="$XDG_CONFIG_HOME/homebrew/Brewfile"
 
+# if exists source environment variables (non-secret)
+[ -f "${XDG_CONFIG_HOME}/.env" ] && source "${XDG_CONFIG_HOME}/.env"
+
 # if exists source secrets
-[ -f "${XDG_CONFIG_HOME}/secrets/.env" ] && source "${XDG_CONFIG_HOME}/secrets/.env"
+[ -f "${XDG_CONFIG_HOME}/.secrets" ] && source "${XDG_CONFIG_HOME}/.secrets"
 
 # if exists add config/bin to PATH
 if [ -d "${XDG_CONFIG_HOME}/bin" ]; then
@@ -26,8 +29,6 @@ eval $(ssh-agent)
 if [ -f "$HOME/.ssh/github" ]; then
   ssh-add --apple-use-keychain ~/.ssh/github
 fi
-
-export POETRY_CONFIG_DIR="${XDG_CONFIG_HOME}/pypoetry"
 
 # Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
 eval "$(rbenv init - --no-rehash zsh)"
