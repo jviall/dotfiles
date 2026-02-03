@@ -15,3 +15,5 @@
 	rebase = true
 [ghq]
   root = ~/git
+[init]
+	defaultBranch = main
