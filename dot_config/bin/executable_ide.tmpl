@@ -1,14 +1,7 @@
 #!/bin/bash
 
 # Define windows array based on environment
-{{ if contains "james" .chezmoi.username }}
-WINDOWS=(
-    "$HOME"
-    "$HOME/.local/share/chezmoi"
-    "$HOME/git/github.com/jviall/bigpeach.club"
-    "$HOME/git/github.com/jviall/rekordbox-bulk-edit/"
-)
-{{ else if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
+{{ if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
 WINDOWS=(
     "$HOME"
     "$HOME/.local/share/chezmoi"
@@ -17,6 +10,13 @@ WINDOWS=(
     "$HOME/git/github.com/newjersey/innovation-engineering"
     "$HOME/git/github.com/newjersey/innovation-engineering-blog"
     "$HOME/git/github.com/newjersey/innovation-shared-actions/"
+)
+{{ else }}
+WINDOWS=(
+    "$HOME"
+    "$HOME/.local/share/chezmoi"
+    "$HOME/git/github.com/jviall/bigpeach.club"
+    "$HOME/git/github.com/jviall/rekordbox-bulk-edit/"
 )
 {{ end }}
 
