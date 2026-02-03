@@ -70,7 +70,15 @@ There are a few different functions that Chezmoi provides for 1P lookups, such a
 `dot_config/bin/executable_ide.tmpl` - Creates a tmux IDE session with predefined windows for common projects. Windows array is templated based on username (personal vs work).
 
 ## Managing Configurations
-My primary editor is NeoVim using LazyVim, the configuration of which is managed in this dotfiles repo. One side effect of how chezmoi manages the source and target files, and how LazyVim manages plugins, is that I often will update plugins using LazyVim which will update the target, which will mean that the target will have drifted from chezmoi's source, and we have to manually merge the changes to the `lazy-lock.json` and `lazyvim.json` files, which if I use `chezmoi merge` will use NeoVim's three-way merge tool. I almost always just take the changes in the target and apply them to the source for these files.
+NeoVim/LazyVim plugin updates modify target files (`~/.config/nvim/lazy-lock.json`, `lazyvim.json`) but not chezmoi source.
+
+**Syncing LazyVim changes:** I usually want to keep the updated target versions, so use `chezl` (alias for `chezmoi re-add`) to copy target back to source without merging:
+
+```sh
+chezl  # preferred over chezmoi merge for these files
+```
+
+Note: Sometimes target has uncommitted updates that have drifted from source (e.g., updates on work machine after pulling personal machine changes). In those cases, you may need `chezmoi merge` or manual resolution.
 
 When adding new configurations:
 - Use appropriate chezmoi prefixes

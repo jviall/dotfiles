@@ -96,3 +96,4 @@ function y() {
 # chezmoi
 alias cheza="chezmoi apply"
 alias chezd="chezmoi diff"
+alias chezl="chezmoi re-add ~/.config/nvim/lazy-lock.json ~/.config/nvim/lazyvim.json"
