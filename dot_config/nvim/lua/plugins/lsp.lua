@@ -103,6 +103,7 @@ return {
             },
           },
         },
+        biome = {},
         eslint = {
           validate = "On",
           format = false,
@@ -118,7 +119,7 @@ return {
           settings = {
             json = {
               format = {
-                enable = false,
+                enable = true,
               },
               validate = { enable = true },
             },
@@ -129,7 +130,7 @@ return {
           settings = {
             yaml = {
               keyOrdering = false,
-              format = false, -- let prettier handle yaml
+              format = true, -- let prettier handle yaml
             },
           },
         },
