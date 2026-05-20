@@ -81,6 +81,7 @@ cask "aerospace"
 cask "protonvpn"
 cask "proton-mail"
 cask "proton-mail-bridge"
+cask "zen"
 cask "arc"
 cask "google-chrome"
 cask "firefox@nightly"
@@ -98,13 +99,14 @@ cask "hammerspoon"
 cask "transmission"
 cask "obsidian"
 cask "claude-code"
-cask "google-drive"
+cask "loopback"
 
 {{ if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
 # Additional work-related packages 
 
 # Casks
 cask "amazon-workspaces"
+cask "google-drive"
 {{- end }}
 
 EOF

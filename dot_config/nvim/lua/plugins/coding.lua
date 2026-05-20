@@ -9,15 +9,9 @@ return {
   -- Refactoring tool
   {
     "ThePrimeagen/refactoring.nvim",
-    lazy = false,
+    dependencies = { "lewis6991/async.nvim" },
     opts = {
-      show_success_message = true, -- shows a message with information about the refactor on success
-    },
-  },
-  {
-    "mini.surround",
-    opts = {
-      mappings = {},
+      show_success_message = true,
     },
   },
   {
@@ -56,11 +50,7 @@ return {
       {
         "<leader>p",
         function()
-          if LazyVim.pick.picker.name == "telescope" then
-            require("telescope").extensions.yank_history.yank_history({})
-          else
-            vim.cmd([[YankyRingHistory]])
-          end
+          LazyVim.pick("yanky")()
         end,
         mode = { "n", "x" },
         desc = "Open Yank History",

@@ -1,3 +1,20 @@
+local function has_eslint_config(ctx)
+  return vim.fs.find({
+    ".eslintrc", ".eslintrc.js", ".eslintrc.cjs",
+    ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json",
+    "eslint.config.js", "eslint.config.mjs", "eslint.config.cjs",
+  }, { path = ctx.filename, upward = true })[1]
+end
+
+local function has_prettier_config(ctx)
+  return vim.fs.find({
+    ".prettierrc", ".prettierrc.js", ".prettierrc.cjs", ".prettierrc.mjs",
+    ".prettierrc.json", ".prettierrc.json5", ".prettierrc.yaml", ".prettierrc.yml",
+    "prettier.config.js", "prettier.config.cjs", "prettier.config.mjs",
+    "prettier.config.ts", "prettier.config.cts", "prettier.config.mts",
+  }, { path = ctx.filename, upward = true })[1]
+end
+
 return {
   -- tools
   {
@@ -15,12 +32,12 @@ return {
         "astro-language-server",
         "prettierd",
         "prettier",
-        "pyright",
+        "eslint_d",
+        "biome",
         "black",
         "isort",
         "flake8",
         "ruff",
-        "ruff-lsp",
         "markdownlint-cli2",
         "markdown-toc",
       })
@@ -44,18 +61,22 @@ return {
       ---@type lspconfig.options
       servers = {
         tailwindcss = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
+          root_markers = { ".git" },
         },
-        tsserver = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
-          single_file_support = false,
+        ts_ls = {
+          root_markers = { ".git" },
+          workspace_required = true,
           keys = {
-            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
+            {
+              "<leader>co",
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = { only = { "source.organizeImports" }, diagnostics = {} },
+                })
+              end,
+              desc = "Organize Imports",
+            },
           },
           settings = {
             typescript = {
@@ -88,10 +109,11 @@ return {
         },
         html = {},
         jsonls = {
-          -- lazy-load schemastore when needed
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+          before_init = function(_, config)
+            config.settings = config.settings or {}
+            config.settings.json = config.settings.json or {}
+            config.settings.json.schemas = config.settings.json.schemas or {}
+            vim.list_extend(config.settings.json.schemas, require("schemastore").json.schemas())
           end,
           settings = {
             json = {
@@ -111,58 +133,15 @@ return {
             },
           },
         },
-        pyright = {
-          settings = {
-            python = {
-              analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
-                typeCheckingMode = "basic",
-                disableOrganizeImports = true, -- ruff handles import sorting
-              },
-              pythonPath = vim.fn.exepath("python3") or vim.fn.exepath("python"),
-              venvPath = vim.fn.getcwd(),
-            },
-          },
-          on_new_config = function(config, root_dir)
-            -- Try to find virtual environment
-            local venv_path = nil
-            local possible_venv_paths = {
-              root_dir .. "/venv",
-              root_dir .. "/.venv",
-              root_dir .. "/env",
-              root_dir .. "/.env",
-            }
-
-            for _, path in ipairs(possible_venv_paths) do
-              if vim.fn.isdirectory(path) == 1 then
-                venv_path = path
-                break
-              end
-            end
-
-            if venv_path then
-              local python_path = venv_path .. "/bin/python"
-              if vim.fn.executable(python_path) == 1 then
-                config.settings.python.pythonPath = python_path
-                config.settings.python.venvPath = root_dir
-                config.settings.python.venv = vim.fn.fnamemodify(venv_path, ":t")
-              end
-            end
-          end,
-        },
-        ruff_lsp = {
+        ty = {},
+        ruff = {
           init_options = {
             settings = {
-              -- Any extra CLI arguments for `ruff` go here.
               args = {},
             },
           },
         },
         lua_ls = {
-          -- enabled = false,
-          single_file_support = true,
           settings = {
             Lua = {
               workspace = {
@@ -233,6 +212,16 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters = {
+        ["biome"] = {
+          condition = function(_, ctx)
+            return not has_eslint_config(ctx) and not has_prettier_config(ctx)
+          end,
+        },
+        ["eslint_d"] = {
+          condition = function(_, ctx)
+            return has_eslint_config(ctx) ~= nil
+          end,
+        },
         ["markdown-toc"] = {
           condition = function(_, ctx)
             for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
@@ -254,12 +243,13 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
-        typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-        javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-        typescript = { "prettierd", "prettier", stop_after_first = true },
-        javascript = { "prettierd", "prettier", stop_after_first = true },
+        typescriptreact = { "biome", "eslint_d", "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { "biome", "eslint_d", "prettierd", "prettier", stop_after_first = true },
+        typescript = { "biome", "eslint_d", "prettierd", "prettier", stop_after_first = true },
+        javascript = { "biome", "eslint_d", "prettierd", "prettier", stop_after_first = true },
         astro = { "prettierd", "prettier", stop_after_first = true },
-        json = { "prettierd", "prettier", stop_after_first = true },
+        json = { "biome", "prettierd", "prettier", stop_after_first = true },
+        jsonc = { "biome", "prettierd", "prettier", stop_after_first = true },
         yaml = { "prettierd", "prettier", stop_after_first = true },
         html = { "prettierd", "prettier", stop_after_first = true },
         markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
