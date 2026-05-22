@@ -15,6 +15,10 @@ local function has_prettier_config(ctx)
   }, { path = ctx.filename, upward = true })[1]
 end
 
+local function has_biome_config(ctx)
+  return vim.fs.find({ "biome.json", "biome.jsonc" }, { path = ctx.filename, upward = true })[1]
+end
+
 return {
   -- tools
   {
@@ -27,7 +31,6 @@ return {
         "shellcheck",
         "shfmt",
         "tailwindcss-language-server",
-        "typescript-language-server",
         "css-lsp",
         "astro-language-server",
         "prettierd",
@@ -63,47 +66,45 @@ return {
         tailwindcss = {
           root_markers = { ".git" },
         },
-        ts_ls = {
-          root_markers = { ".git" },
-          workspace_required = true,
+        vtsls = {
           keys = {
             {
               "<leader>co",
               function()
                 vim.lsp.buf.code_action({
                   apply = true,
-                  context = { only = { "source.organizeImports" }, diagnostics = {} },
+                  context = { only = { "source.organizeImports.ts" }, diagnostics = {} },
                 })
               end,
               desc = "Organize Imports",
             },
           },
           settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
             javascript = {
               inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
+                variableTypes = { enabled = true },
               },
             },
           },
         },
-        biome = {},
+        biome = {
+          keys = {
+            {
+              "<leader>ca",
+              function()
+                local ctx = { filename = vim.api.nvim_buf_get_name(0) }
+                if has_eslint_config(ctx) then
+                  vim.lsp.buf.code_action()
+                else
+                  vim.lsp.buf.code_action({
+                    context = { only = { "source.fixAll.biome", "quickfix", "refactor", "source" } },
+                  })
+                end
+              end,
+              desc = "Code Action",
+            },
+          },
+        },
         eslint = {
           validate = "On",
           format = false,
@@ -215,7 +216,7 @@ return {
       formatters = {
         ["biome"] = {
           condition = function(_, ctx)
-            return not has_eslint_config(ctx) and not has_prettier_config(ctx)
+            return not has_prettier_config(ctx)
           end,
         },
         ["eslint_d"] = {
