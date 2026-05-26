@@ -229,6 +229,12 @@ run = 'move-node-to-workspace S'
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace S'
+[[on-window-detected]]
+if.app-id = 'app.zen-browser.zen'
+run = 'move-node-to-workspace S'
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = 'move-node-to-workspace S'
 
 # Auto assign Workspace [E]mail
 [[on-window-detected]]
@@ -277,6 +283,9 @@ run = 'layout floating'
 [[on-window-detected]]
 if.app-id = 'com.apple.Passwords'
 run = 'move-node-to-workspace P'
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'move-node-to-workspace P'
 
 # Auto assign Workspace [O]ther
 [[on-window-detected]]
@@ -284,6 +293,11 @@ if.app-id = 'ch.protonvpn.mac'
 run = 'move-node-to-workspace O'
 [[on-window-detected]]
 if.app-id = 'at.obdev.littlesnitch.agent'
+run = 'move-node-to-workspace O'
+
+# Auto assign Workspace [N]otes
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
 run = 'move-node-to-workspace O'
 
 # Auto-layout Finder as Floating
