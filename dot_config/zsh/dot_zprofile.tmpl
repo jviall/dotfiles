@@ -7,7 +7,7 @@ export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
 {{ else if eq .chezmoi.os "linux" -}}
 # Homebrew path (Linux / WSL)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-{{ end -}}
+{{ end }}
 export HOMEBREW_BREWFILE="$XDG_CONFIG_HOME/homebrew/Brewfile"
 
 # if exists source environment variables (non-secret)
@@ -31,9 +31,9 @@ export PATH="$HOME/.cache/node/corepack:$PATH"
 
 eval $(ssh-agent)
 if [ -f "$HOME/.ssh/github" ]; then
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" }}
   ssh-add --apple-use-keychain ~/.ssh/github
-{{ else -}}
+{{- else }}
   ssh-add ~/.ssh/github
 {{- end }}
 fi
