@@ -70,7 +70,8 @@ brew "age"
 brew "rage"
 brew "asdf"
 
-# casks 
+{{ if eq .chezmoi.os "darwin" -}}
+# casks (macOS only)
 cask "ghostty"
 cask "iterm2"
 cask "1password"
@@ -102,13 +103,12 @@ cask "obsidian"
 cask "claude-code"
 cask "loopback"
 
-{{ if or (contains "gov" .chezmoi.username ) (contains "nj" .chezmoi.username) -}}
-# Additional work-related packages 
-
-# Casks
+{{ if or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) -}}
+# Additional work-related casks
 cask "amazon-workspaces"
 cask "google-drive"
 cask "onedrive"
+{{- end }}
 {{- end }}
 
 EOF
