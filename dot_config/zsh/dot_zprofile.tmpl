@@ -1,6 +1,13 @@
 #!/bin/zsh
-# Hombrew path
+{{ if eq .chezmoi.os "darwin" -}}
+# Homebrew path (macOS)
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin/python3:$PATH"
+export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
+{{ else if eq .chezmoi.os "linux" -}}
+# Homebrew path (Linux / WSL)
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end -}}
 export HOMEBREW_BREWFILE="$XDG_CONFIG_HOME/homebrew/Brewfile"
 
 # if exists source environment variables (non-secret)
@@ -19,15 +26,16 @@ if [ -d "$HOME/brew/bin" ]; then
   export PATH="$HOME/brew/bin:$PATH"
 fi
 
-export PATH="/opt/homebrew/bin/python3:$PATH"
-export PATH="/opt/homebrew/opt/python3/libexec/bin:$PATH"
-
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cache/node/corepack:$PATH"
 
 eval $(ssh-agent)
 if [ -f "$HOME/.ssh/github" ]; then
+{{ if eq .chezmoi.os "darwin" -}}
   ssh-add --apple-use-keychain ~/.ssh/github
+{{ else -}}
+  ssh-add ~/.ssh/github
+{{- end }}
 fi
 
 # Added by `rbenv init` on Fri Apr  4 10:42:21 PDT 2025
