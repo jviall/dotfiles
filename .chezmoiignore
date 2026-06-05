@@ -1,2 +1,6 @@
 README.md
 CLAUDE.md
+{{ if ne .chezmoi.os "windows" -}}
+dot_Documents/**
+.chezmoiscripts/run_onchange_before_install-winget.ps1.tmpl
+{{- end }}
