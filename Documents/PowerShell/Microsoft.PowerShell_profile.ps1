@@ -30,6 +30,18 @@ function g {
     if ($args.Count -eq 0) { git status } else { git @args }
 }
 
+# Eza (modern ls replacement)
+if (Get-Command eza -ErrorAction SilentlyContinue) {
+    function ls  { eza -ax --icons @args }
+    function ll  { eza -albh --icons --git @args }
+    function lr  { eza -TL 3 --icons @args }
+}
+
+# Zoxide (smarter cd with z alias)
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+}
+
 # Starship prompt (requires Starship installed via winget)
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
