@@ -3,7 +3,11 @@ CLAUDE.md
 docs
 docs/**
 {{ if ne .chezmoi.os "windows" -}}
-.Documents
-.Documents/**
+Documents
+Documents/**
 .chezmoiscripts/install-winget.ps1
+{{- end }}
+{{ if eq .chezmoi.os "windows" -}}
+.chezmoiscripts/install-init.sh
+.chezmoiscripts/install-brew-bundle.sh
 {{- end }}

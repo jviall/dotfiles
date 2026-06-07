@@ -1,7 +1,8 @@
 {{ if eq .chezmoi.os "windows" -}}
 $packages = @(
     "Neovim.Neovim",
-    "Git.Git",
+    "Microsoft.Git",
+    "Microsoft.PowerShell",
     "AgileBits.1Password",
     "AgileBits.1Password.CLI",
     "Mozilla.Firefox",
@@ -24,7 +25,7 @@ foreach ($pkg in $packages) {
         Write-Host "$pkg already installed, skipping."
     } else {
         Write-Host "Installing $pkg..."
-        winget install --id $pkg --silent --accept-package-agreements --accept-source-agreements
+        winget install --id $pkg --scope user --silent --accept-package-agreements --accept-source-agreements
     }
 }
 
@@ -39,7 +40,7 @@ foreach ($pkg in $workPackages) {
         Write-Host "$pkg already installed, skipping."
     } else {
         Write-Host "Installing $pkg..."
-        winget install --id $pkg --silent --accept-package-agreements --accept-source-agreements
+        winget install --id $pkg --scope user --silent --accept-package-agreements --accept-source-agreements
     }
 }
 {{- end }}
