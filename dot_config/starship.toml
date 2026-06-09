@@ -1,0 +1,15 @@
+command_timeout = 2000
+
+[python]
+# The Windows Store python.exe shim is too slow; only show python when in a project dir
+detect_extensions = ["py"]
+detect_files = [
+  "requirements.txt",
+  "pyproject.toml",
+  "setup.py",
+  "setup.cfg",
+  "Pipfile",
+  ".python-version",
+  "poetry.lock",
+]
+detect_folders = [".venv", "venv"]
