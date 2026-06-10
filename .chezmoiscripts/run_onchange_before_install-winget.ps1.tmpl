@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "windows" -}}
 $packages = @(
     "Neovim.Neovim",
-    "Microsoft.Git",
+    "Git.Git",
     "Microsoft.PowerShell",
     "AgileBits.1Password",
     "AgileBits.1Password.CLI",
@@ -29,19 +29,28 @@ foreach ($pkg in $packages) {
     }
 }
 
-{{ if or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) -}}
-$workPackages = @(
-    "Microsoft.OneDrive"
+
+if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+    Write-Host "Installing Scoop..."
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+}
+
+scoop bucket add extras
+
+$scoop_packages = @(
+    "ghq",
+    "git-aliases"
 )
 
-foreach ($pkg in $workPackages) {
-    $result = winget list --id $pkg --exact --accept-source-agreements 2>&1
-    if ($LASTEXITCODE -eq 0) {
+foreach ($pkg in $scoop_packages) {
+    $installed = scoop list $pkg 2>&1 | Select-String $pkg
+    if ($installed) {
         Write-Host "$pkg already installed, skipping."
     } else {
         Write-Host "Installing $pkg..."
-        winget install --id $pkg --scope user --silent --accept-package-agreements --accept-source-agreements
+        scoop install $pkg
     }
 }
-{{- end }}
+
 {{- end }}
