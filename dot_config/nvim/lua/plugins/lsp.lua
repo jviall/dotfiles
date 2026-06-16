@@ -136,6 +136,31 @@ return {
           },
         },
         ty = {},
+        pyright = {
+          root_dir = function(fname)
+            local util = require("lspconfig.util")
+            local markers = { "pyrightconfig.json" }
+            local root = util.root_pattern(unpack(markers))(fname)
+            if root then
+              return root
+            end
+            -- Check for [tool.pyright] in pyproject.toml
+            local pyproject = util.root_pattern("pyproject.toml")(fname)
+            if pyproject then
+              local path = pyproject .. "/pyproject.toml"
+              local f = io.open(path, "r")
+              if f then
+                local content = f:read("*a")
+                f:close()
+                if content:find("%[tool%.pyright%]") then
+                  return pyproject
+                end
+              end
+            end
+            return nil
+          end,
+          single_file_support = false,
+        },
         ruff = {
           init_options = {
             settings = {
