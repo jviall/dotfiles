@@ -37,28 +37,7 @@ alias awslogin='aws sso login'
 
 alias aider="aider --config ~/.config/.aider.conf.yml --env-file ~/.config/.env-aider"
 
-# Git Aliases
-alias gs="git status"
-alias gc="git commit -S"
-alias gce="git commit -S --amend"
-alias gcm="git commit -S -m"
-alias gca="git commit -S -a"
-alias gcam="git commit -S -am"
-alias gcem="git commit -S --amend -m"
-alias gcee="git commit -S -a --amend --no-edit"
-alias ga="git add"
-alias gaa="git add -A"
-alias gap="git add -p"
-alias gpull="git pull"
-alias gd="git diff"
-alias gdc="git diff --cached"
-alias gll="git log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative"
-alias gl="git log --pretty=format:'%C(yellow)%h%Creset %ad %C(cyan)%an%Creset: %s' --date=relative -n 10"
-alias greup="git fetch origin main:main && git rebase main"
-alias gst="git stash"
-alias gch="git checkout"
-alias gnb="git checkout -b"
-# default git to git status if there's no args
+# default git to git status if there's no args (overrides ohmyzsh g=git alias)
 function g() {
   if [[ -z "${*//[[:space:]]/}" ]]; then
     git status
