@@ -7,3 +7,4 @@ znap source zdharma-continuum/fast-syntax-highlighting
 znap source zsh-users/zsh-autosuggestions
 znap source kutsan/zsh-system-clipboard
 znap source ohmyzsh/ohmyzsh plugins/git
+znap source ohmyzsh/ohmyzsh plugins/aws
