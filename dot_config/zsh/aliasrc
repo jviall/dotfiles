@@ -12,15 +12,21 @@ alias nv="nvim"
 # alias kchrome="ps -e | rg chrom | awk '{print $1}' | xargs kill -9"
 #
 
-alias aider="aider --config ~/.config/.aider.conf.yml --env-file ~/.config/.env-aider"
+alias greup=gfo main:main && grbm
 
 # default git to git status if there's no args (overrides ohmyzsh g=git alias)
+unalias g 2>/dev/null
 function g() {
   if [[ -z "${*//[[:space:]]/}" ]]; then
     git status
   else
     git "$@"
   fi
+}
+
+# a "git help" that lets me fuzzy search for all the configured aliases and their expanded commands
+function ghp() {
+  alias | grep "^g" | grep "git" | fzf --prompt="git alias> "
 }
 
 # Tmux
