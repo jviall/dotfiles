@@ -12,7 +12,7 @@ alias nv="nvim"
 # alias kchrome="ps -e | rg chrom | awk '{print $1}' | xargs kill -9"
 #
 
-alias greup=gfo main:main && grbm
+alias greup=git fetch origin main:main && git rebase main
 
 # default git to git status if there's no args (overrides ohmyzsh g=git alias)
 unalias g 2>/dev/null
