@@ -30,7 +30,58 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
-      picker = { preset = "ivy" },
+      picker = {
+        preset = "ivy",
+        -- AeroSpace claims every alt+<letter> and alt-shift+<letter> combo
+        -- for workspace switching, so the picker's default alt-bound toggles
+        -- (normally alt-h/alt-i/etc) never reach Neovim. Rebind them to bare
+        -- capital letters in normal mode instead (press <Esc> from the input
+        -- box first) rather than alt or ctrl: ctrl-<letter> is nearly fully
+        -- claimed by other picker actions already, and ctrl-h/i/m are
+        -- indistinguishable from Backspace/Tab/Enter in some terminals.
+        -- Mirrors the existing bare H/I/P toggles on the explorer source.
+        win = {
+          input = {
+            keys = {
+              ["H"] = { "toggle_hidden", mode = "n" },
+              ["I"] = { "toggle_ignored", mode = "n" },
+              ["F"] = { "toggle_follow", mode = "n" },
+              ["R"] = { "toggle_regex", mode = "n" },
+              ["M"] = { "toggle_maximize", mode = "n" },
+              ["P"] = { "toggle_preview", mode = "n" },
+              ["W"] = { "cycle_win", mode = "n" },
+              ["D"] = { "inspect", mode = "n" },
+            },
+          },
+          list = {
+            keys = {
+              ["H"] = { "toggle_hidden", mode = "n" },
+              ["I"] = { "toggle_ignored", mode = "n" },
+              ["F"] = { "toggle_follow", mode = "n" },
+              ["R"] = { "toggle_regex", mode = "n" },
+              ["M"] = { "toggle_maximize", mode = "n" },
+              ["P"] = { "toggle_preview", mode = "n" },
+              ["W"] = { "cycle_win", mode = "n" },
+              ["D"] = { "inspect", mode = "n" },
+            },
+          },
+          -- Same toggles, bound again for the preview window: cycle_win (W)
+          -- can land focus there, and without this it falls through to
+          -- Neovim's native H/M motions on the previewed buffer instead.
+          preview = {
+            keys = {
+              ["H"] = { "toggle_hidden", mode = "n" },
+              ["I"] = { "toggle_ignored", mode = "n" },
+              ["F"] = { "toggle_follow", mode = "n" },
+              ["R"] = { "toggle_regex", mode = "n" },
+              ["M"] = { "toggle_maximize", mode = "n" },
+              ["P"] = { "toggle_preview", mode = "n" },
+              ["W"] = { "cycle_win", mode = "n" },
+              ["D"] = { "inspect", mode = "n" },
+            },
+          },
+        },
+      },
       explorer = {},
       win = {
         preview = {
