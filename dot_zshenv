@@ -8,6 +8,16 @@ fi
 if [[ -z "$XDG_CACHE_HOME" ]]; then
   export XDG_CACHE_HOME="$HOME/.cache"
 fi
+if [[ -z "$XDG_RUNTIME_DIR" ]]; then
+  # Short, fixed path: without this, apps that need it (e.g. Neovim's
+  # stdpath("run")) fall back to $TMPDIR/nvim.$USER/<rand>, which on macOS
+  # embeds the full username. With a long username (e.g. an email-style
+  # work account), that fallback path plus a socket filename can exceed the
+  # 104-byte AF_UNIX sun_path limit, breaking tools like fzf-lua's serverstart().
+  export XDG_RUNTIME_DIR="/tmp/xdg-runtime-$(id -u)"
+  mkdir -p "$XDG_RUNTIME_DIR"
+  chmod 700 "$XDG_RUNTIME_DIR"
+fi
 # set location of .zshrc if present
 if [[ -d "$XDG_CONFIG_HOME/zsh" ]]; then
   export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
