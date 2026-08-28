@@ -111,4 +111,29 @@ return {
       },
     },
   },
+  {
+    "afonsofrancof/worktrees.nvim",
+    event = "VeryLazy",
+    opts = {
+      base_path = "./worktrees/", -- Parent directory of common dir
+
+      -- Template for worktree folder names
+      -- This is only used if you don't specify the folder name when creating the worktree
+      path_template = "{branch}", -- Default: use branch name
+
+      -- Command names (optional)
+      commands = {
+        create = "WorktreeCreate",
+        delete = "WorktreeDelete",
+        switch = "WorktreeSwitch",
+      },
+
+      -- Key mappings for interactive UI (optional)
+      mappings = {
+        create = "<leader>wtc",
+        delete = "<leader>wtd",
+        switch = "<leader>wts",
+      },
+    },
+  },
 }
