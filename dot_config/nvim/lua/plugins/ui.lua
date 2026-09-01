@@ -32,6 +32,14 @@ return {
     opts = {
       picker = {
         preset = "ivy",
+        sources = {
+          -- Scope Smart Find Files to the current worktree/cwd: buffers
+          -- and recent files otherwise span every worktree and project
+          -- you've ever opened, since oldfiles is global to the editor.
+          smart = {
+            filter = { cwd = true },
+          },
+        },
         -- AeroSpace claims every alt+<letter> and alt-shift+<letter> combo
         -- for workspace switching, so the picker's default alt-bound toggles
         -- (normally alt-h/alt-i/etc) never reach Neovim. Rebind them to bare
