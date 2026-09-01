@@ -29,6 +29,13 @@ function ghp() {
   alias | grep "^g" | grep "git" | fzf --prompt="git alias> "
 }
 
+# switch to a git worktree by name; jumps directly if the name uniquely matches, else fuzzy-picks
+function gwts() {
+  local target
+  target=$(git worktree list | fzf --query="$1" --select-1 --exit-0 --prompt="worktree> " | awk '{print $1}')
+  [[ -n "$target" ]] && cd "$target"
+}
+
 # Tmux
 alias tkill="tmux kill-session -t"
 alias tlist="tmux list-sessions"
