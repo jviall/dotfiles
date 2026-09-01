@@ -112,28 +112,38 @@ return {
     },
   },
   {
-    "afonsofrancof/worktrees.nvim",
-    event = "VeryLazy",
-    opts = {
-      base_path = "./worktrees/", -- Parent directory of common dir
+    "ThePrimeagen/git-worktree.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local worktree = require("git-worktree")
 
-      -- Template for worktree folder names
-      -- This is only used if you don't specify the folder name when creating the worktree
-      path_template = "{branch}", -- Default: use branch name
+      worktree.setup({
+        change_directory_command = "cd",
+        update_on_change = true,
+        update_on_change_command = "e .",
+        clearjumps_on_change = true,
+        autopush = false,
+      })
 
-      -- Command names (optional)
-      commands = {
-        create = "WorktreeCreate",
-        delete = "WorktreeDelete",
-        switch = "WorktreeSwitch",
-      },
-
-      -- Key mappings for interactive UI (optional)
-      mappings = {
-        create = "<leader>wtc",
-        delete = "<leader>wtd",
-        switch = "<leader>wts",
-      },
+      -- No telescope in this config, so restart LSP clients on switch
+      -- ourselves rather than relying on the plugin's telescope extension.
+      worktree.on_tree_change(function(op, metadata)
+        if op == worktree.Operations.Switch then
+          for _, client in ipairs(vim.lsp.get_clients()) do
+            client:stop()
+          end
+          vim.defer_fn(function()
+            if vim.fn.expand("%") ~= "" then
+              vim.cmd("edit")
+            end
+          end, 100)
+        end
+      end)
+    end,
+    -- stylua: ignore
+    keys = {
+      { "<leader>wts", function() require("util.git_worktree_picker").switch() end, desc = "Switch Git Worktree" },
+      { "<leader>wtc", function() require("util.git_worktree_picker").create() end, desc = "Create Git Worktree" },
     },
   },
 }
