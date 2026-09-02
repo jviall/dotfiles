@@ -92,7 +92,12 @@ function M.create()
         return
       end
       local branch = item.branch
-      local default_path = branch:gsub("[/\\]", "-")
+      -- Default new worktrees to live inside .git itself (as a sibling
+      -- of git's own worktrees/ metadata dir), not in the repo root.
+      -- Use --git-common-dir (not --absolute-git-dir) so this still
+      -- resolves to the main .git even when run from a linked worktree.
+      local git_dir = vim.trim(vim.fn.system("git rev-parse --path-format=absolute --git-common-dir"))
+      local default_path = git_dir .. "/" .. branch:gsub("[/\\]", "-")
       local path = vim.fn.input("Worktree path: ", default_path)
       if path ~= "" then
         require("git-worktree").create_worktree(path, branch)
