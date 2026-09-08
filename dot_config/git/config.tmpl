@@ -1,0 +1,36 @@
+[user]
+	name = jviall
+	email = jviall@pm.me
+{{- if eq .chezmoi.os "windows" }}
+  # github-windows key, held in 1Password and served by its SSH agent.
+  # Must match a key registered as a *Signing* key on GitHub, or commits show Unverified.
+  signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAK3Fs++OSi4bLswZKwkBwGssQv1XeQR0cKnh6NJgufc
+{{- else }}
+  signingkey = ~/.ssh/github
+{{- end }}
+[core]
+  editor = nvim
+	excludesfile = ~/.config/git/ignore
+{{- if eq .chezmoi.os "windows" }}
+  # Git Bash's MSYS ssh cannot open Windows named pipes, so it cannot reach
+  # the 1Password SSH agent; native Windows OpenSSH can.
+  sshCommand = C:/Windows/System32/OpenSSH/ssh.exe
+{{- end }}
+[push]
+  autoSetupRemote = true
+[commit]
+  gpgsign = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  allowedSignersFile = ~/.config/git/allowed_signers
+{{- if eq .chezmoi.os "windows" }}
+  # MSYS ssh-keygen cannot reach the 1Password agent named pipe
+  program = C:/Windows/System32/OpenSSH/ssh-keygen.exe
+{{- end }}
+[pull]
+	rebase = true
+[ghq]
+  root = ~/git
+[init]
+	defaultBranch = main

@@ -4,6 +4,17 @@ $env:XDG_DATA_HOME   = "$HOME/.local/share"
 $env:XDG_CACHE_HOME  = "$HOME/.cache"
 $env:PATH            = "$HOME/.config/bin" + [IO.Path]::PathSeparator + $env:PATH
 
+# Set output encoding for external commands (e.g., piping to cmd.exe tools)  
+$OutputEncoding = [System.Text.UTF8Encoding]::new()  
+ 
+# Set console display encoding  
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()  
+ 
+# Force cmdlets like Out-File and Set-Content to use UTF-8 (no BOM)  
+$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'  
+$PSDefaultParameterValues['Set-Content:Encoding'] = 'utf8'  
+$PSDefaultParameterValues['Export-Csv:Encoding'] = 'utf8'
+
 # Eza (modern ls replacement)
 if (Get-Command eza -ErrorAction SilentlyContinue) {
     function ls  { eza -ax --icons @args }
