@@ -7,5 +7,5 @@ Host github.com
     User git
     # Windows: ssh_config unescapes \\ -> \, so backslashes are doubled here
     # to yield the literal pipe path \\.\pipe\openssh-ssh-agent
-    IdentityAgent {{ if eq .chezmoi.os "windows" }}\\\\.\\pipe\\openssh-ssh-agent{{ else if eq .chezmoi.os "darwin" }}~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock{{ else }}~/.1password/agent.sock{{ end }}
+    IdentityAgent {{ if eq .chezmoi.os "windows" }}\\\\.\\pipe\\openssh-ssh-agent{{ else if eq .chezmoi.os "darwin" }}"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"{{ else }}~/.1password/agent.sock{{ end }}
 
