@@ -34,3 +34,33 @@ if (Get-Command zoxide -ErrorAction SilentlyContinue) {
 
 # git-aliases (installed via scoop; on PSModulePath). No-op if not installed.
 Import-Module git-aliases -DisableNameChecking -ErrorAction SilentlyContinue
+
+# Salmon (music uploads via docker compose on truenas)
+$SalmonCompose = "/mnt/apps/stacks/music-upload/compose.yaml"
+$SalmonSmb     = "M:\downloads"
+$SalmonRemote  = "/data/downloads"
+
+# Copy a release to downloads (if it isn't there already) and start an upload
+function Salmon-Up {
+    param(
+        [Parameter(Mandatory)][string]$Path,
+        [string]$Source = "WEB",
+        [Parameter(ValueFromRemainingArguments)][string[]]$Extra
+    )
+    $item = Get-Item -LiteralPath $Path
+    $name = $item.Name
+
+    if ($item.FullName -notlike "$SalmonSmb*") {
+        robocopy $item.FullName (Join-Path $SalmonSmb $name) /E /NFL /NDL /NJH /NJS /NP | Out-Null
+        if ($LASTEXITCODE -ge 8) { throw "robocopy failed (exit $LASTEXITCODE)" }
+    }
+
+    $remotePath = "$SalmonRemote/$name" -replace "'", "'\''"
+    $cmd = "sudo docker compose -f $SalmonCompose run --rm salmon up '$remotePath' -s $Source $($Extra -join ' ')"
+    ssh -t truenas $cmd
+}
+
+# Run any other salmon command: salmon checkconf, salmon health, salmon --help
+function salmon {
+    ssh -t truenas "sudo docker compose -f $SalmonCompose run --rm salmon $($args -join ' ')"
+}

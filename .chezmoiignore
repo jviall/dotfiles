@@ -6,6 +6,8 @@ docs/**
 Documents
 Documents/**
 .chezmoiscripts/install-winget.ps1
+.config/powershell
+.config/powershell/**
 {{- end }}
 {{ if eq .chezmoi.os "windows" -}}
 .chezmoiscripts/install-init.sh
