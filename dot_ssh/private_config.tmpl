@@ -1,7 +1,20 @@
+{{- $truenasUser := (onepasswordItemFields "oreomgth32isublk6llmatskpe").username.value }}
+{{- $netbirdHost := "" }}
+{{- range (onepassword "33qz3dkod6oo7xd5da23547ije").urls }}
+{{-   if hasPrefix "NetBird URL" .label }}{{ $netbirdHost = (urlParse .href).hostname }}{{ end }}
+{{- end -}}
+# The 1P hostname is a NetBird reverse proxy (HTTP only), so SSH by IP instead.
+# LAN IP still works with ProtonVPN on, since Proton lets LAN traffic bypass the tunnel.
 Host truenas
-    HostName {{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").hostname.value }}
-    User {{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").username.value }}
-    IdentityFile ~/.ssh/{{ (onepasswordItemFields "oreomgth32isublk6llmatskpe").username.value }}
+    HostName 192.168.68.10
+    User {{ $truenasUser }}
+    IdentityFile ~/.ssh/{{ $truenasUser }}
+
+# Away from home: requires the NetBird client to be connected
+Host truenas-remote
+    HostName {{ $netbirdHost }}
+    User {{ $truenasUser }}
+    IdentityFile ~/.ssh/{{ $truenasUser }}
 
 Host github.com
     User git
