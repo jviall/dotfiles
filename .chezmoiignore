@@ -13,3 +13,6 @@ Documents/**
 .chezmoiscripts/install-init.sh
 .chezmoiscripts/install-brew-bundle.sh
 {{- end }}
+{{ if or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) -}}
+.ssh/forgejo.pub
+{{- end }}

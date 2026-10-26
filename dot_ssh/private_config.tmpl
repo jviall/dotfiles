@@ -2,6 +2,13 @@
 {{- $netbirdHost := "" }}
 {{- range (onepassword "33qz3dkod6oo7xd5da23547ije").urls }}
 {{-   if hasPrefix "NetBird URL" .label }}{{ $netbirdHost = (urlParse .href).hostname }}{{ end }}
+{{- end }}
+{{- $isWork := or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) }}
+{{- /* Windows: ssh_config unescapes \\ -> \, so backslashes are doubled here
+       to yield the literal pipe path \\.\pipe\openssh-ssh-agent */ -}}
+{{- $opAgent := "~/.1password/agent.sock" }}
+{{- if eq .chezmoi.os "windows" }}{{ $opAgent = `\\\\.\\pipe\\openssh-ssh-agent` }}
+{{- else if eq .chezmoi.os "darwin" }}{{ $opAgent = `"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"` }}
 {{- end -}}
 # The 1P hostname is a NetBird reverse proxy (HTTP only), so SSH by IP instead.
 # LAN IP still works with ProtonVPN on, since Proton lets LAN traffic bypass the tunnel.
@@ -18,7 +25,24 @@ Host truenas-remote
 
 Host github.com
     User git
-    # Windows: ssh_config unescapes \\ -> \, so backslashes are doubled here
-    # to yield the literal pipe path \\.\pipe\openssh-ssh-agent
-    IdentityAgent {{ if eq .chezmoi.os "windows" }}\\\\.\\pipe\\openssh-ssh-agent{{ else if eq .chezmoi.os "darwin" }}"~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"{{ else }}~/.1password/agent.sock{{ end }}
+    IdentityAgent {{ $opAgent }}
+{{- if not $isWork }}
 
+# Forgejo on TrueNAS. git.8008.house resolves to NetBird's HTTP-only proxy,
+# so SSH goes to the LAN IP; the name is kept so Forgejo's clone URLs work as-is.
+{{- if ne .chezmoi.os "windows" }}
+# Off-LAN, fall back to the NetBird peer (requires the NetBird client).
+# Listed first because the first HostName set wins.
+Match host git.8008.house !exec "nc -z {{ if eq .chezmoi.os "darwin" }}-G 1{{ else }}-w 1{{ end }} 192.168.68.10 2222 >/dev/null 2>&1"
+    HostName {{ $netbirdHost }}
+{{- end }}
+Host git.8008.house
+    HostName 192.168.68.10
+    Port 2222
+    User git
+    # One known_hosts entry whether we connect via LAN IP or NetBird
+    HostKeyAlias git.8008.house
+    IdentityAgent {{ $opAgent }}
+    IdentityFile ~/.ssh/forgejo.pub
+    IdentitiesOnly yes
+{{- end }}

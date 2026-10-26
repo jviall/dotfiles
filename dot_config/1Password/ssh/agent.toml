@@ -34,3 +34,8 @@ vault = "Personal"
 
 [[ssh-keys]]
 vault = "NJOOI"
+
+# Forgejo on TrueNAS (git.8008.house); only this item, not the whole Media vault
+[[ssh-keys]]
+item = "Forgejo (git.8008.house) SSH Key"
+vault = "Media"
