@@ -4,6 +4,7 @@
 {{-   if hasPrefix "NetBird URL" .label }}{{ $netbirdHost = (urlParse .href).hostname }}{{ end }}
 {{- end }}
 {{- $isWork := or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) }}
+{{- $machineKey := includeTemplate "machine-ssh-key" . | trim }}
 {{- /* Windows: ssh_config unescapes \\ -> \, so backslashes are doubled here
        to yield the literal pipe path \\.\pipe\openssh-ssh-agent */ -}}
 {{- $opAgent := "~/.1password/agent.sock" }}
@@ -26,6 +27,11 @@ Host truenas-remote
 Host github.com
     User git
     IdentityAgent {{ $opAgent }}
+{{- if $machineKey }}
+    # This machine's personal key (see .chezmoitemplates/machine-ssh-key)
+    IdentityFile ~/.ssh/machine_key.pub
+    IdentitiesOnly yes
+{{- end }}
 {{- if not $isWork }}
 
 # Forgejo on TrueNAS. git.8008.house resolves to NetBird's HTTP-only proxy,
@@ -43,6 +49,8 @@ Host git.8008.house
     # One known_hosts entry whether we connect via LAN IP or NetBird
     HostKeyAlias git.8008.house
     IdentityAgent {{ $opAgent }}
-    IdentityFile ~/.ssh/forgejo.pub
+{{- if $machineKey }}
+    IdentityFile ~/.ssh/machine_key.pub
     IdentitiesOnly yes
+{{- end }}
 {{- end }}

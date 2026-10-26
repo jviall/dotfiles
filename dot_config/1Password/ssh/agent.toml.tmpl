@@ -31,11 +31,8 @@
 
 [[ssh-keys]]
 vault = "Personal"
+{{- if or (contains "gov" .chezmoi.username) (contains "nj" .chezmoi.username) }}
 
 [[ssh-keys]]
 vault = "NJOOI"
-
-# Forgejo on TrueNAS (git.8008.house); only this item, not the whole Media vault
-[[ssh-keys]]
-item = "Forgejo (git.8008.house) SSH Key"
-vault = "Media"
+{{- end }}
